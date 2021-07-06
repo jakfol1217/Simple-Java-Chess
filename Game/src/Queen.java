@@ -1,5 +1,5 @@
 public class Queen extends Piece {
-    private int color = -1;
+    private int color;
 
     public Queen(int color) {
         this.color = color;

@@ -1,5 +1,5 @@
 public class King extends Piece {
-    private int color = -1;
+    private int color;
 
 
     public King(int color) {

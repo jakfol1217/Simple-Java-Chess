@@ -1,5 +1,5 @@
 public class Bishop extends Piece {
-    private int color = -1;
+    private int color;
 
     public Bishop(int color) {
         this.color = color;

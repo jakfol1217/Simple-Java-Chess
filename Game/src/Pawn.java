@@ -1,5 +1,5 @@
 public class Pawn extends Piece {
-    private int color = -1;
+    private int color;
 
     public Pawn(int color) {
         this.color = color;

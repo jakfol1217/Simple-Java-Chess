@@ -1,5 +1,5 @@
 public class Rook extends Piece {
-    private int color = -1;
+    private int color;
 
     public Rook(int color) {
         this.color = color;

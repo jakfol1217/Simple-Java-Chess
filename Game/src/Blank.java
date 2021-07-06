@@ -1,8 +1,7 @@
 public class Blank extends Piece {
     private int color;
-
     public Blank() {
-        this.color = 0;
+        int color = 0;
     }
 
     @Override
