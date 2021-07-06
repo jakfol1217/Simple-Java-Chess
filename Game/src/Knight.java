@@ -1,6 +1,9 @@
 public class Knight extends Piece {
     private int color = -1;
 
+    public Knight(int color) {
+        this.color = color;
+    }
 
     @Override
     public void draw() {

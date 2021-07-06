@@ -1,6 +1,9 @@
 public class Rook extends Piece {
     private int color = -1;
 
+    public Rook(int color) {
+        this.color = color;
+    }
 
     @Override
     public void draw() {
