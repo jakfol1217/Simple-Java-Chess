@@ -42,8 +42,6 @@ public class ChessBoard {
         board.add(61, new Bishop(1, 61));
         board.add(62, new Knight(1, 62));
         board.add(63, new Rook(1, 63));
-
-
     }
     public void drawBoard(){
         System.out.print(1);
