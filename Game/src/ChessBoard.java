@@ -13,16 +13,16 @@ public class ChessBoard {
 
     private void setBoard(){
         //Set up whites
-        board.add(0, new Rook(1, 0));
-        board.add(1, new Knight(1,1));
-        board.add(2, new Bishop(1,2));
-        board.add(3, new Queen(1,3));
-        board.add(4, new King(1,4));
-        board.add(5, new Bishop(1,5));
-        board.add(6, new Knight(1,6));
-        board.add(7, new Rook(1,7));
+        board.add(0, new Rook(-1, 0));
+        board.add(1, new Knight(-1,1));
+        board.add(2, new Bishop(-1,2));
+        board.add(3, new Queen(-1,3));
+        board.add(4, new King(-1,4));
+        board.add(5, new Bishop(-1,5));
+        board.add(6, new Knight(-1,6));
+        board.add(7, new Rook(-1,7));
         for(int i = 8; i<16;i++){
-            board.add(i, new Pawn(1, i));
+            board.add(i, new Pawn(-1, i));
         }
         //fill the rest with blanks
         for(int i = 16;i<48;i++){
@@ -30,30 +30,46 @@ public class ChessBoard {
         }
         //set up blacks
         for(int i = 48; i<56;i++){
-            board.add(i, new Pawn(-1, i));
+            board.add(i, new Pawn(1, i));
         }
-        board.add(56, new Rook(-1, 56));
-        board.add(57, new Knight(-1, 57));
-        board.add(58, new Bishop(-1, 58));
-        board.add(59, new Queen(-1, 59));
-        board.add(60, new King(-1, 60));
-        board.add(61, new Bishop(-1, 61));
-        board.add(62, new Knight(-1, 62));
-        board.add(63, new Rook(-1, 63));
+        board.add(56, new Rook(1, 56));
+        board.add(57, new Knight(1, 57));
+        board.add(58, new Bishop(1, 58));
+        board.add(59, new Queen(1, 59));
+        board.add(60, new King(1, 60));
+        board.add(61, new Bishop(1, 61));
+        board.add(62, new Knight(1, 62));
+        board.add(63, new Rook(1, 63));
 
 
     }
     public void drawBoard(){
+        System.out.print("|");
         for(int i =0;i<64;i++){
-            if(i % 8 == 0){
+            if(i % 8 == 0 && i != 0){
                 System.out.print("\n");
                 System.out.print("|");
             }
             board.get(i).draw();
             System.out.print("|");
         }
+        System.out.print("\n");
     }
-
+    public int movePiece(int from, int to, int turn){
+        if(turn * board.get(from).getColor() <=0){
+            System.out.println("INVALID PIECE CHOSEN");
+            return 1;
+        }
+        if(board.get(from).checkMove(to) == 1){
+            System.out.println("CAN'T MOVE THERE");
+            return 1;
+        }
+        Piece piece = board.get(from);
+        board.set(to, piece);
+        board.set(from, new Blank());
+        board.get(to).setLocation(to);
+        return 0;
+    }
 
     private abstract class Piece{
         private int color;
@@ -176,7 +192,79 @@ public class ChessBoard {
             if(ChessBoard.this.board.get(position).getColor() * this.color > 0){
                 return 1;
             }
-            return 0;
+            int row = (location/8) * 8;
+            if(Math.abs(position - location) % 9 == 0){
+                if(position > location){
+                    for(int i = location + 9;i < position;i=i+9){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                            return 1;
+                        }
+                    }
+                }
+                else{
+                    for(int i = location - 9;i > position;i=i-9){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                            return 1;
+                        }
+                    }
+                }
+                return 0;
+            }
+            else if(Math.abs(position - location) % 7 == 0) {
+                if (position > location) {
+                    for (int i = location + 7; i < position; i = i + 7) {
+                        if (ChessBoard.this.board.get(i).getColor() * this.color > 0) {
+                            return 1;
+                        }
+                    }
+                } else {
+                    for (int i = location - 7; i > position; i = i - 7) {
+                        if (ChessBoard.this.board.get(i).getColor() * this.color > 0) {
+                            return 1;
+                        }
+                    }
+                }
+                return 0;
+            }
+            else if(Math.abs(position - location) % 8 == 0){
+                if(position > location){
+                    for(int i = location + 8;i < position;i=i+8){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                            return 1;
+                        }
+                    }
+                }
+                else{
+                    for(int i = location - 8;i > position;i=i-8){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                            return 1;
+                        }
+                    }
+                }
+                return 0;
+            }
+            else if(row <= position && row + 7 >= position){
+                if(position > location){
+                    for(int i = location + 1;i < position;i++){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                            return 1;
+                        }
+                    }
+                }
+                else{
+                    for(int i = location - 1;i > position;i--){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                            return 1;
+                        }
+                    }
+                }
+                return 0;
+            }
+
+            else{
+                return 1;
+            }
+
         }
 
         public int getColor() {
@@ -240,7 +328,45 @@ public class ChessBoard {
             if(ChessBoard.this.board.get(position).getColor() * this.color > 0){
                 return 1;
             }
-            return 0;
+            int row = (location/8) * 8;
+            if(Math.abs(position - location) % 8 == 0){
+                if(position > location){
+                    for(int i = location + 8;i < position;i=i+8){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                            return 1;
+                        }
+                    }
+                }
+                else{
+                    for(int i = location - 8;i > position;i=i-8){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                            return 1;
+                        }
+                    }
+                }
+                return 0;
+            }
+            else if(row <= position && row + 7 >= position){
+                if(position > location){
+                    for(int i = location + 1;i < position;i++){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                            return 1;
+                        }
+                    }
+                }
+                else{
+                    for(int i = location - 1;i > position;i--){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                            return 1;
+                        }
+                    }
+                }
+                return 0;
+            }
+            else{
+                return 1;
+            }
+
         }
 
         @Override
@@ -272,7 +398,44 @@ public class ChessBoard {
             if(ChessBoard.this.board.get(position).getColor() * this.color > 0){
                 return 1;
             }
-            return 0;
+            if(Math.abs(position - location) % 9 == 0){
+                if(position > location){
+                    for(int i = location + 9;i < position;i=i+9){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                            return 1;
+                        }
+                    }
+                }
+                else{
+                    for(int i = location - 9;i > position;i=i-9){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                            return 1;
+                        }
+                    }
+                }
+                return 0;
+            }
+            else if(Math.abs(position - location) % 7 == 0){
+                if(position > location){
+                    for(int i = location + 7;i < position;i=i+7){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                            return 1;
+                        }
+                    }
+                }
+                else{
+                    for(int i = location - 7;i > position;i=i-7){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                            return 1;
+                        }
+                    }
+                }
+                return 0;
+            }
+            else{
+                return 1;
+            }
+
         }
 
         public int getColor() {
@@ -325,8 +488,6 @@ public class ChessBoard {
             } else {
                 return 1;
             }
-
-
         }
 
         public int getColor() {
@@ -362,7 +523,7 @@ public class ChessBoard {
     private class Pawn extends Piece {
         private int color;
         private int location;
-
+        private int moved = 2;
         public Pawn(int color, int location) {
             this.color = color;
             this.location = location;
@@ -374,7 +535,27 @@ public class ChessBoard {
             if(ChessBoard.this.board.get(position).getColor() * this.color > 0){
                 return 1;
             }
-            return 0;
+            if(Math.abs(position-location) == 9 || Math.abs(position-location) == 7){
+                if(ChessBoard.this.board.get(position).getColor() * this.color >= 0){
+                    return 1;
+                }
+                moved = 0;
+                return 0;
+            }
+            else if(Math.abs(position - location) == 8){
+                moved = 0;
+                return 0;
+            }
+            else if(Math.abs(position - location) == 16 && moved == 2){
+                if(ChessBoard.this.board.get(location + (8 * (-1 * color))).getColor() * this.color > 0){
+                    return 1;
+                }
+                moved = 1;
+                return 0;
+            }
+            else {
+                return 1;
+            }
         }
 
         public int getColor() {
