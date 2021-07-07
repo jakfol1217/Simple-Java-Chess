@@ -44,16 +44,19 @@ public class ChessBoard {
 
     }
     public void drawBoard(){
-        System.out.print("|");
+        System.out.print(1);
+        System.out.print(" |");
         for(int i =0;i<64;i++){
             if(i % 8 == 0 && i != 0){
                 System.out.print("\n");
-                System.out.print("|");
+                System.out.print(i/8 + 1);
+                System.out.print(" |");
             }
             board.get(i).draw();
             System.out.print("|");
         }
-        System.out.print("\n");
+        System.out.println(" ");
+        System.out.println("   a  b  c  d  e  f  g  h");
     }
     public int movePiece(int from, int to, int turn){
         if(turn * board.get(from).getColor() <=0){
@@ -196,14 +199,14 @@ public class ChessBoard {
             if(Math.abs(position - location) % 9 == 0){
                 if(position > location){
                     for(int i = location + 9;i < position;i=i+9){
-                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color != 0){
                             return 1;
                         }
                     }
                 }
                 else{
                     for(int i = location - 9;i > position;i=i-9){
-                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color != 0){
                             return 1;
                         }
                     }
@@ -213,13 +216,13 @@ public class ChessBoard {
             else if(Math.abs(position - location) % 7 == 0) {
                 if (position > location) {
                     for (int i = location + 7; i < position; i = i + 7) {
-                        if (ChessBoard.this.board.get(i).getColor() * this.color > 0) {
+                        if (ChessBoard.this.board.get(i).getColor() * this.color != 0) {
                             return 1;
                         }
                     }
                 } else {
                     for (int i = location - 7; i > position; i = i - 7) {
-                        if (ChessBoard.this.board.get(i).getColor() * this.color > 0) {
+                        if (ChessBoard.this.board.get(i).getColor() * this.color != 0) {
                             return 1;
                         }
                     }
@@ -229,14 +232,14 @@ public class ChessBoard {
             else if(Math.abs(position - location) % 8 == 0){
                 if(position > location){
                     for(int i = location + 8;i < position;i=i+8){
-                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color != 0){
                             return 1;
                         }
                     }
                 }
                 else{
                     for(int i = location - 8;i > position;i=i-8){
-                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color != 0){
                             return 1;
                         }
                     }
@@ -246,14 +249,14 @@ public class ChessBoard {
             else if(row <= position && row + 7 >= position){
                 if(position > location){
                     for(int i = location + 1;i < position;i++){
-                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color != 0){
                             return 1;
                         }
                     }
                 }
                 else{
                     for(int i = location - 1;i > position;i--){
-                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color != 0){
                             return 1;
                         }
                     }
@@ -332,14 +335,14 @@ public class ChessBoard {
             if(Math.abs(position - location) % 8 == 0){
                 if(position > location){
                     for(int i = location + 8;i < position;i=i+8){
-                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color != 0){
                             return 1;
                         }
                     }
                 }
                 else{
                     for(int i = location - 8;i > position;i=i-8){
-                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color != 0){
                             return 1;
                         }
                     }
@@ -349,14 +352,14 @@ public class ChessBoard {
             else if(row <= position && row + 7 >= position){
                 if(position > location){
                     for(int i = location + 1;i < position;i++){
-                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color != 0){
                             return 1;
                         }
                     }
                 }
                 else{
                     for(int i = location - 1;i > position;i--){
-                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color != 0){
                             return 1;
                         }
                     }
@@ -401,14 +404,14 @@ public class ChessBoard {
             if(Math.abs(position - location) % 9 == 0){
                 if(position > location){
                     for(int i = location + 9;i < position;i=i+9){
-                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color != 0){
                             return 1;
                         }
                     }
                 }
                 else{
                     for(int i = location - 9;i > position;i=i-9){
-                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color != 0){
                             return 1;
                         }
                     }
@@ -418,14 +421,14 @@ public class ChessBoard {
             else if(Math.abs(position - location) % 7 == 0){
                 if(position > location){
                     for(int i = location + 7;i < position;i=i+7){
-                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color != 0){
                             return 1;
                         }
                     }
                 }
                 else{
                     for(int i = location - 7;i > position;i=i-7){
-                        if(ChessBoard.this.board.get(i).getColor() * this.color > 0){
+                        if(ChessBoard.this.board.get(i).getColor() * this.color != 0){
                             return 1;
                         }
                     }
@@ -547,7 +550,7 @@ public class ChessBoard {
                 return 0;
             }
             else if(Math.abs(position - location) == 16 && moved == 2){
-                if(ChessBoard.this.board.get(location + (8 * (-1 * color))).getColor() * this.color > 0){
+                if(ChessBoard.this.board.get(location + (8 * (-1 * color))).getColor() * this.color != 0){
                     return 1;
                 }
                 moved = 1;
@@ -584,9 +587,5 @@ public class ChessBoard {
             }
         }
     }
-
-
-
-
 
 }
