@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class ChessBoard {
@@ -73,9 +75,59 @@ public class ChessBoard {
         board.get(to).setLocation(to);
         return 0;
     }
+    public void checkPromotion(){
+        for(int i = 0;i<8;i++){
+            if(board.get(i).isPawn()){
+                promote(i, board.get(i).getColor());
+                break;
+            }
+        }
+        for(int i = 56;i<64;i++){
+            if(board.get(i).isPawn()){
+                promote(i, board.get(i).getColor());
+                break;
+            }
+        }
+    }
+    private void promote(int position, int color){
+        try {
+            System.out.println("CHOOSE FIGURE");
+            System.out.println("0- QUEEN");
+            System.out.println("1- ROOK");
+            System.out.println("2- BISHOP");
+            System.out.println("3- KNIGHT");
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            int choice = Integer.parseInt(br.readLine());
+            if (choice < 0 || choice > 3) {
+                throw new Exception("STH WENT WRONG");
+            }
+            switch (choice){
+                case 0:
+                    board.set(position, new Queen(color, position));
+                    break;
+                case 1:
+                    board.set(position, new Rook(color, position));
+                    break;
+                case 2:
+                    board.set(position, new Bishop(color, position));
+                    break;
+                case 3:
+                    board.set(position, new Knight(color, position));
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println("SOMETHING WENT WORNG. TRY CHOOSING AGAIN");
+            checkPromotion();
+        }
+    }
 
     private abstract class Piece{
         private int color;
+        private boolean isPawn;
+
+        public boolean isPawn() {
+            return isPawn;
+        }
 
         public int getColor() {
             return color;
@@ -105,6 +157,11 @@ public class ChessBoard {
      */
     private  class Blank extends Piece {
         private int color;
+        private boolean isPawn = false;
+
+        public boolean isPawn() {
+            return isPawn;
+        }
         public Blank() {
             int color = 0;
         }
@@ -134,6 +191,11 @@ public class ChessBoard {
     private class King extends Piece {
         private int color;
         private int location;
+        private boolean isPawn = false;
+
+        public boolean isPawn() {
+            return isPawn;
+        }
 
         public King(int color, int location) {
             this.color = color;
@@ -184,6 +246,11 @@ public class ChessBoard {
     private class Queen extends Piece {
         private int color;
         private int location;
+        private boolean isPawn = false;
+
+        public boolean isPawn() {
+            return isPawn;
+        }
 
         public Queen(int color, int location) {
             this.color = color;
@@ -304,6 +371,11 @@ public class ChessBoard {
     private class Rook extends Piece {
         private int color;
         private int location;
+        private boolean isPawn = false;
+
+        public boolean isPawn() {
+            return isPawn;
+        }
 
         public Rook(int color, int location) {
             this.color = color;
@@ -389,6 +461,11 @@ public class ChessBoard {
     private class Bishop extends Piece {
         private int color;
         private int location;
+        private boolean isPawn = false;
+
+        public boolean isPawn() {
+            return isPawn;
+        }
 
         public Bishop(int color, int location) {
             this.color = color;
@@ -474,6 +551,11 @@ public class ChessBoard {
     private class Knight extends Piece {
         private int color;
         private int location;
+        private boolean isPawn = false;
+
+        public boolean isPawn() {
+            return isPawn;
+        }
 
         public Knight(int color, int location) {
             this.color = color;
@@ -527,6 +609,11 @@ public class ChessBoard {
         private int color;
         private int location;
         private int moved = 2;
+        private boolean isPawn = true;
+
+        public boolean isPawn() {
+            return isPawn;
+        }
         public Pawn(int color, int location) {
             this.color = color;
             this.location = location;
@@ -538,18 +625,18 @@ public class ChessBoard {
             if(ChessBoard.this.board.get(position).getColor() * this.color > 0){
                 return 1;
             }
-            if(Math.abs(position-location) == 9 || Math.abs(position-location) == 7){
+            if((position-location) * (-1 * color) == 9 || (position-location) * (-1 * color) == 7){
                 if(ChessBoard.this.board.get(position).getColor() * this.color >= 0){
                     return 1;
                 }
                 moved = 0;
                 return 0;
             }
-            else if(Math.abs(position - location) == 8){
+            else if((position - location) * (-1 * color) == 8){
                 moved = 0;
                 return 0;
             }
-            else if(Math.abs(position - location) == 16 && moved == 2){
+            else if((position - location) * (-1 * color) == 16 && moved == 2){
                 if(ChessBoard.this.board.get(location + (8 * (-1 * color))).getColor() * this.color != 0){
                     return 1;
                 }

@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -35,6 +34,7 @@ public class Game {
         }
     }
 
+
     public void play(){
         try {
             while(true) {
@@ -55,12 +55,13 @@ public class Game {
                 int from = translateField(piece);
                 int to = translateField(pos);
                 int success = board.movePiece(from, to, turn);
+                board.checkPromotion();
                 if(success == 0){
                     turn = turn * -1;
                 }
             }
         }catch (Exception e){
-            System.out.print("WRONG FIELD");
+            System.out.println("WRONG FIELD");
             this.play();
         }
     }
