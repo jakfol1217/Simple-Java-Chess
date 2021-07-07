@@ -31,7 +31,7 @@ public class Game {
             int position2 = Integer.parseInt(position.substring(1, 2));
             return fieldNames.get(position1) + (position2 - 1) * 8 - 1;
         } else{
-            throw new Exception("Wrong field!");
+            throw new Exception("WRONG FIELD");
         }
     }
 
@@ -60,7 +60,8 @@ public class Game {
                 }
             }
         }catch (Exception e){
-            e.printStackTrace();
+            System.out.print("WRONG FIELD");
+            this.play();
         }
     }
 
