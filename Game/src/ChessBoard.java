@@ -75,13 +75,13 @@ public class ChessBoard {
     }
     public void checkPromotion(){
         for(int i = 0;i<8;i++){
-            if(board.get(i).isPawn()){
+            if(board.get(i) instanceof Pawn){
                 promote(i, board.get(i).getColor());
                 break;
             }
         }
         for(int i = 56;i<64;i++){
-            if(board.get(i).isPawn()){
+            if(board.get(i) instanceof Pawn){
                 promote(i, board.get(i).getColor());
                 break;
             }
@@ -114,18 +114,14 @@ public class ChessBoard {
                     break;
             }
         } catch (Exception e) {
-            System.out.println("SOMETHING WENT WORNG. TRY CHOOSING AGAIN");
+            System.out.println("SOMETHING WENT WRONG. TRY CHOOSING AGAIN");
             checkPromotion();
         }
     }
 
     private abstract class Piece{
         private int color;
-        private boolean isPawn;
 
-        public boolean isPawn() {
-            return isPawn;
-        }
 
         public int getColor() {
             return color;
@@ -155,11 +151,12 @@ public class ChessBoard {
      */
     private  class Blank extends Piece {
         private int color;
-        private boolean isPawn = false;
+        private int castleable = 0;
 
-        public boolean isPawn() {
-            return isPawn;
+        public int getCastleable() {
+            return castleable;
         }
+
         public Blank() {
             int color = 0;
         }
@@ -189,10 +186,10 @@ public class ChessBoard {
     private class King extends Piece {
         private int color;
         private int location;
-        private boolean isPawn = false;
+        private int castleable = 1;
 
-        public boolean isPawn() {
-            return isPawn;
+        public int getCastleable() {
+            return castleable;
         }
 
         public King(int color, int location) {
@@ -206,6 +203,7 @@ public class ChessBoard {
                 return 1;
             }
             if (Math.abs(position - location) == 1 || Math.abs(position - location) == 8 || Math.abs(position - location) == 9 || Math.abs(position - location) == 7) {
+                castleable = 0;
                 return 0;
             } else {
                 return 1;
@@ -244,10 +242,10 @@ public class ChessBoard {
     private class Queen extends Piece {
         private int color;
         private int location;
-        private boolean isPawn = false;
+        private int castleable = 0;
 
-        public boolean isPawn() {
-            return isPawn;
+        public int getCastleable() {
+            return castleable;
         }
 
         public Queen(int color, int location) {
@@ -369,10 +367,10 @@ public class ChessBoard {
     private class Rook extends Piece {
         private int color;
         private int location;
-        private boolean isPawn = false;
+        private int castleable = 1;
 
-        public boolean isPawn() {
-            return isPawn;
+        public int getCastleable() {
+            return castleable;
         }
 
         public Rook(int color, int location) {
@@ -417,6 +415,7 @@ public class ChessBoard {
                         }
                     }
                 }
+                castleable = 0;
                 return 0;
             }
             else if(row <= position && row + 7 >= position){
@@ -434,6 +433,7 @@ public class ChessBoard {
                         }
                     }
                 }
+                castleable = 0;
                 return 0;
             }
             else{
@@ -459,10 +459,10 @@ public class ChessBoard {
     private class Bishop extends Piece {
         private int color;
         private int location;
-        private boolean isPawn = false;
+        private int castleable = 0;
 
-        public boolean isPawn() {
-            return isPawn;
+        public int getCastleable() {
+            return castleable;
         }
 
         public Bishop(int color, int location) {
@@ -549,10 +549,10 @@ public class ChessBoard {
     private class Knight extends Piece {
         private int color;
         private int location;
-        private boolean isPawn = false;
+        private int castleable = 0;
 
-        public boolean isPawn() {
-            return isPawn;
+        public int getCastleable() {
+            return castleable;
         }
 
         public Knight(int color, int location) {
@@ -607,11 +607,12 @@ public class ChessBoard {
         private int color;
         private int location;
         private int moved = 2;
-        private boolean isPawn = true;
+        private int castleable = 0;
 
-        public boolean isPawn() {
-            return isPawn;
+        public int getCastleable() {
+            return castleable;
         }
+
         public Pawn(int color, int location) {
             this.color = color;
             this.location = location;
