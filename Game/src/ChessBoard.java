@@ -119,10 +119,59 @@ public class ChessBoard {
         }
     }
 
+    public int castle(int color, int type){
+        if(color < 0 && type > 0){
+            if(board.get(4).getCastleable() * board.get(7).getCastleable() == 1 && board.get(5).getColor() == 0 && board.get(6).getColor() == 0){
+                board.set(5, new Rook(color, 5));
+                board.set(6, new King(color, 6));
+                board.get(5).setCastleable(0);
+                board.get(6).setCastleable(0);
+                board.set(4, new Blank());
+                board.set(7, new Blank());
+                return 0;
+            }
+        }
+        if(color <0 && type < 0){
+            if(board.get(4).getCastleable() * board.get(0).getCastleable() == 1 && board.get(1).getColor() == 0 && board.get(2).getColor() == 0 && board.get(3).getColor() == 0){
+                board.set(3, new Rook(color, 5));
+                board.set(2, new King(color, 6));
+                board.get(3).setCastleable(0);
+                board.get(2).setCastleable(0);
+                board.set(0, new Blank());
+                board.set(4, new Blank());
+                return 0;
+            }
+        }
+        if(color > 0 && type > 0){
+            if(board.get(60).getCastleable() * board.get(63).getCastleable() == 1 && board.get(61).getColor() == 0 && board.get(62).getColor() == 0){
+                board.set(61, new Rook(color, 5));
+                board.set(62, new King(color, 6));
+                board.get(61).setCastleable(0);
+                board.get(62).setCastleable(0);
+                board.set(60, new Blank());
+                board.set(63, new Blank());
+                return 0;
+            }
+        }
+        if(color > 0 && type < 0){
+            if(board.get(60).getCastleable() * board.get(56).getCastleable() == 1 && board.get(57).getColor() == 0 && board.get(58).getColor() == 0 && board.get(59).getColor() == 0){
+                board.set(59, new Rook(color, 5));
+                board.set(58, new King(color, 6));
+                board.get(59).setCastleable(0);
+                board.get(58).setCastleable(0);
+                board.set(56, new Blank());
+                board.set(60, new Blank());
+                return 0;
+            }
+        }
+        return 1;
+    }
+
     private abstract class Piece{
         private int color;
 
-
+        public abstract int getCastleable();
+        public abstract void setCastleable(int castleable);
         public int getColor() {
             return color;
         }
@@ -152,6 +201,10 @@ public class ChessBoard {
     private  class Blank extends Piece {
         private int color;
         private int castleable = 0;
+
+        public void setCastleable(int castleable) {
+            this.castleable = castleable;
+        }
 
         public int getCastleable() {
             return castleable;
@@ -188,6 +241,9 @@ public class ChessBoard {
         private int location;
         private int castleable = 1;
 
+        public void setCastleable(int castleable) {
+            this.castleable = castleable;
+        }
         public int getCastleable() {
             return castleable;
         }
@@ -244,6 +300,9 @@ public class ChessBoard {
         private int location;
         private int castleable = 0;
 
+        public void setCastleable(int castleable) {
+            this.castleable = castleable;
+        }
         public int getCastleable() {
             return castleable;
         }
@@ -369,6 +428,9 @@ public class ChessBoard {
         private int location;
         private int castleable = 1;
 
+        public void setCastleable(int castleable) {
+            this.castleable = castleable;
+        }
         public int getCastleable() {
             return castleable;
         }
@@ -461,6 +523,9 @@ public class ChessBoard {
         private int location;
         private int castleable = 0;
 
+        public void setCastleable(int castleable) {
+            this.castleable = castleable;
+        }
         public int getCastleable() {
             return castleable;
         }
@@ -551,6 +616,9 @@ public class ChessBoard {
         private int location;
         private int castleable = 0;
 
+        public void setCastleable(int castleable) {
+            this.castleable = castleable;
+        }
         public int getCastleable() {
             return castleable;
         }
@@ -609,6 +677,9 @@ public class ChessBoard {
         private int moved = 2;
         private int castleable = 0;
 
+        public void setCastleable(int castleable) {
+            this.castleable = castleable;
+        }
         public int getCastleable() {
             return castleable;
         }

@@ -45,11 +45,51 @@ public class Game {
                     System.out.println(turnName[(-1 * turn) + 1] + " WIN");
                     break;
                 }
+                if(piece.equals("cs")){
+                    if(board.castle(turn, 1) == 0){
+                        turn = turn * -1;
+                        continue;
+                    }
+                    else{
+                        System.out.println("CAN'T CASTLE");
+                        continue;
+                    }
+                }
+                if(piece.equals("cl")){
+                    if(board.castle(turn, -1) == 0){
+                        turn = turn * -1;
+                        continue;
+                    }
+                    else{
+                        System.out.println("CAN'T CASTLE");
+                        continue;
+                    }
+                }
                 System.out.println("WHERE TO?");
                 String pos = br.readLine();
                 if(pos.equals("exit")){
                     System.out.println(turnName[(-1 * turn) + 1] + " WIN");
                     break;
+                }
+                if(pos.equals("cs")){
+                    if(board.castle(turn, 1) == 0){
+                        turn = turn * -1;
+                        continue;
+                    }
+                    else{
+                        System.out.println("CAN'T CASTLE");
+                        continue;
+                    }
+                }
+                if(pos.equals("cl")){
+                    if(board.castle(turn, -1) == 0){
+                        turn = turn * -1;
+                        continue;
+                    }
+                    else{
+                        System.out.println("CAN'T CASTLE");
+                        continue;
+                    }
                 }
                 int from = translateField(piece);
                 int to = translateField(pos);
