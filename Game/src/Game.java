@@ -8,14 +8,14 @@ public class Game {
     private static final String[] turnName = {"WHITE", "", "BLACK"};
     private static final Pattern fieldPattern = Pattern.compile("[a-hA-H][1-8]");
     private static final Map<String, Integer> fieldNames = Map.of(
-            "a",1,
-            "b", 2,
-            "c", 3,
-            "d", 4,
-            "e", 5,
-            "f", 6,
-            "g", 7,
-            "h", 8);
+            "a",0,
+            "b", 1,
+            "c", 2,
+            "d", 3,
+            "e", 4,
+            "f", 5,
+            "g", 6,
+            "h", 7);
     private ChessBoard board;
 
     public Game() {
@@ -23,11 +23,11 @@ public class Game {
     }
 
     //Converts the field number passed by the player to array position for ChessBoard
-    public static int translateField(String position) throws Exception {
+    public static int[] translateField(String position) throws Exception {
         if(fieldPattern.matcher(position).matches()) {
             String position1 = position.substring(0, 1);
             int position2 = Integer.parseInt(position.substring(1, 2));
-            return fieldNames.get(position1) + (position2 - 1) * 8 - 1;
+            return new int[]{position2-1, fieldNames.get(position1)};
         } else{
             throw new Exception("WRONG FIELD");
         }
@@ -91,11 +91,25 @@ public class Game {
                         continue;
                     }
                 }
-                int from = translateField(piece);
-                int to = translateField(pos);
+                int[] from = translateField(piece);
+                int[] to = translateField(pos);
                 int success = board.movePiece(from, to, turn);
                 board.checkPromotion();
+                if(turn <0){
+                    if(board.getBlackMoved()[0] >=0){
+                        board.setMoved(turn);
+                    }
+                    board.setBlackMoved(new int[] {-1, -1});
+                }
+                if(turn >0){
+                    if(board.getWhiteMoved()[0] >=0){
+                        board.setMoved(turn);
+                    }
+                    board.setWhiteMoved(new int[] {-1, -1});
+                }
+
                 if(success == 0){
+
                     turn = turn * -1;
                 }
             }
