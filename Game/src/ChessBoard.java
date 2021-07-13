@@ -5,6 +5,244 @@ public class ChessBoard {
     private Piece[][] board = new Piece[8][8];
     private int[] whiteMoved = {-1, -1};
     private int[] blackMoved = {-1, -1};
+    private int[] blackKing = {7, 4};
+    private int[] whiteKing = {0, 4};
+    private int whiteCheck = 0;
+    private int blackCheck = 0;
+
+    public int getWhiteCheck() {
+        return whiteCheck;
+    }
+
+    public void setWhiteCheck(int whiteCheck) {
+        this.whiteCheck = whiteCheck;
+    }
+
+    public int getBlackCheck() {
+        return blackCheck;
+    }
+
+    public void setBlackCheck(int blackCheck) {
+        this.blackCheck = blackCheck;
+    }
+
+    public int[] getBlackKing() {
+        return blackKing;
+    }
+
+    public void setBlackKing(int[] blackKing) {
+        this.blackKing = blackKing;
+    }
+
+    public int[] getWhiteKing() {
+        return whiteKing;
+    }
+    public boolean onBoard(int loc0, int loc1){
+        return loc0 >= 0 && loc0 <= 7 && loc1 >= 0 && loc1 <= 7;
+    }
+
+    public void setWhiteKing(int[] whiteKing) {
+        this.whiteKing = whiteKing;
+    }
+    public int checkCheck(int color){
+        int[] location;
+        if(color < 0){
+            location = whiteKing;
+        }
+        else{
+            location = blackKing;
+        }
+        for(int i = location[0] + 1;i<8;i++){
+            if(board[i][location[1]].getColor() != 0){
+                if (board[i][location[1]].getColor() * color > 0) {
+                    break;
+                }
+                if (board[i][location[1]].getColor() * color < 0) {
+                    if(board[i][location[1]] instanceof Rook || board[i][location[1]] instanceof Queen) {
+                        return 1;
+                    }
+                    else{
+                        break;
+                    }
+
+                }
+            }
+
+        }
+        for(int i = location[0] - 1;i>-1;i--){
+            if(board[i][location[1]].getColor() != 0){
+                if (board[i][location[1]].getColor() * color > 0) {
+                    break;
+                }
+                if (board[i][location[1]].getColor() * color < 0) {
+                    if(board[i][location[1]] instanceof Rook || board[i][location[1]] instanceof Queen) {
+                        return 1;
+                    }
+                    else{
+                        break;
+                    }
+
+                }
+            }
+
+        }
+        for(int i = location[1] + 1;i<8;i++){
+            if(board[location[0]][i].getColor() != 0){
+                if (board[location[0]][i].getColor() * color > 0) {
+                    break;
+                }
+                if (board[location[0]][i].getColor() * color < 0) {
+                    if(board[location[0]][i] instanceof Rook || board[location[0]][i] instanceof Queen) {
+                        return 1;
+                    }
+                    else{
+                        break;
+                    }
+
+                }
+            }
+        }
+        for(int i = location[1] - 1;i>-1;i--){
+            if(board[location[0]][i].getColor() != 0){
+                if (board[location[0]][i].getColor() * color > 0) {
+                    break;
+                }
+                if (board[location[0]][i].getColor() * color < 0) {
+                    if(board[location[0]][i] instanceof Rook || board[location[0]][i] instanceof Queen) {
+                        return 1;
+                    }
+                    else{
+                        break;
+                    }
+
+                }
+            }
+        }
+        if(onBoard(location[0] - color, location[1] - 1)){
+            if(board[location[0] - color][location[1] - 1] instanceof Pawn && board[location[0] - color][location[1] - 1].getColor() * color < 0){
+                return 1;
+            }
+        }
+        if(onBoard(location[0] - color, location[1] + 1)){
+            if(board[location[0] - color][location[1] + 1] instanceof Pawn && board[location[0] - color][location[1] + 1].getColor() * color < 0){
+                return 1;
+            }
+        }
+        if(onBoard(location[0] + 2, location[1] + 1)){
+            if(board[location[0] + 2][location[1] + 1] instanceof Knight && board[location[0] + 2][location[1] + 1].getColor() * color < 0){
+                return 1;
+            }
+        }
+        if(onBoard(location[0] + 1, location[1] + 2)){
+            if(board[location[0] + 1][location[1] + 2] instanceof Knight && board[location[0] + 1][location[1] + 2].getColor() * color < 0){
+                return 1;
+            }
+        }
+        if(onBoard(location[0] - 2, location[1] - 1)){
+            if(board[location[0] - 2][location[1] - 1] instanceof Knight && board[location[0] - 2][location[1] - 1].getColor() * color < 0){
+                return 1;
+            }
+        }
+        if(onBoard(location[0] - 1, location[1] - 2)){
+            if(board[location[0] - 1][location[1] - 2] instanceof Knight && board[location[0] - 1][location[1] - 2].getColor() * color < 0){
+                return 1;
+            }
+        }
+        if(onBoard(location[0] + 2, location[1] - 1)){
+            if(board[location[0] + 2][location[1] - 1] instanceof Knight && board[location[0] + 2][location[1] - 1].getColor() * color < 0){
+                return 1;
+            }
+        }
+        if(onBoard(location[0] - 2, location[1] + 1)){
+            if(board[location[0] - 2][location[1] + 1] instanceof Knight && board[location[0] - 2][location[1] + 1].getColor() * color < 0){
+                return 1;
+            }
+        }
+        if(onBoard(location[0] - 1, location[1] + 2)){
+            if(board[location[0] - 1][location[1] + 2] instanceof Knight && board[location[0] - 1][location[1] + 2].getColor() * color < 0){
+                return 1;
+            }
+        }
+        if(onBoard(location[0] + 1, location[1] - 2)){
+            if(board[location[0] + 1][location[1] - 2] instanceof Knight && board[location[0] + 1][location[1] - 2].getColor() * color < 0){
+                return 1;
+            }
+        }
+        int i = 1;
+        while(onBoard(location[0] + i, location[1] + i)){
+            if(board[location[0] + i][location[1] + i].getColor() != 0){
+                if (board[location[0] + i][location[1] + i].getColor() * color > 0) {
+                    break;
+                }
+                if (board[location[0] + i][location[1] + i].getColor() * color < 0) {
+                    if(board[location[0] + i][location[1] + i] instanceof Bishop || board[location[0] + i][location[1] + i] instanceof Queen) {
+                        return 1;
+                    }
+                    else{
+                        break;
+                    }
+
+                }
+            }
+            i++;
+        }
+        i = 1;
+        while(onBoard(location[0] - i, location[1] - i)){
+            if(board[location[0] - i][location[1] - i].getColor() != 0){
+                if (board[location[0] - i][location[1] - i].getColor() * color > 0) {
+                    break;
+                }
+                if (board[location[0] - i][location[1] - i].getColor() * color < 0) {
+                    if(board[location[0] - i][location[1] - i] instanceof Bishop || board[location[0] - i][location[1] - i] instanceof Queen) {
+                        return 1;
+                    }
+                    else{
+                        break;
+                    }
+
+                }
+            }
+            i++;
+        }
+        i = 1;
+        while(onBoard(location[0] + i, location[1] - i)){
+            if(board[location[0] + i][location[1] - i].getColor() != 0){
+                if (board[location[0] + i][location[1] - i].getColor() * color > 0) {
+                    break;
+                }
+                if (board[location[0] + i][location[1] - i].getColor() * color < 0) {
+                    if(board[location[0] + i][location[1] - i] instanceof Bishop || board[location[0] + i][location[1] - i] instanceof Queen) {
+                        return 1;
+                    }
+                    else{
+                        break;
+                    }
+
+                }
+            }
+            i++;
+        }
+        i = 1;
+        while(onBoard(location[0] - i, location[1] + i)){
+            if(board[location[0] - i][location[1] + i].getColor() != 0){
+                if (board[location[0] - i][location[1] + i].getColor() * color > 0) {
+                    break;
+                }
+                if (board[location[0] - i][location[1] + i].getColor() * color < 0) {
+                    if(board[location[0] - i][location[1] + i] instanceof Bishop || board[location[0] - i][location[1] + i] instanceof Queen) {
+                        return 1;
+                    }
+                    else{
+                        break;
+                    }
+
+                }
+            }
+            i++;
+        }
+
+        return 0;
+    }
 
     public int[] getWhiteMoved() {
         return whiteMoved;
@@ -165,6 +403,12 @@ public class ChessBoard {
     }
 
     public int castle(int color, int type){
+        if(color < 0 && whiteCheck > 0){
+            return 1;
+        }
+        if(color > 0 && blackCheck > 0){
+            return 1;
+        }
         if(color < 0 && type > 0){
             if(board[0][4].getCastleable() * board[0][7].getCastleable() == 1 && board[0][5].getColor() == 0 && board[0][6].getColor() == 0){
                 board[0][5] =  new Rook(color, new int[]{0,5});
@@ -330,6 +574,12 @@ public class ChessBoard {
                 return 1;
             }
             if (Math.abs(position[0] - location[0]) == 1 || Math.abs(position[1] - location[1]) == 1 || (Math.abs(position[0] - location[0]) == Math.abs(position[1] - location[1]) && Math.abs(position[0] - location[0]) == 1)) {
+                if(color < 0){
+                    setWhiteKing(position);
+                }
+                else{
+                    setBlackKing(position);
+                }
                 castleable = 0;
                 return 0;
             } else {

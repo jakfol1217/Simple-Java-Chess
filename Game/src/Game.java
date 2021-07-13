@@ -37,6 +37,20 @@ public class Game {
     public void play(){
         try {
             while(true) {
+                if(turn < 0){
+                    if(board.getBlackCheck() == 1){
+                        System.out.println("CHECKMATE");
+                        System.out.println(turnName[turn + 1] + " WIN");
+                        break;
+                    }
+                }
+                else{
+                    if(board.getWhiteCheck() == 1){
+                        System.out.println("CHECKMATE");
+                        System.out.println(turnName[turn + 1] + " WIN");
+                        break;
+                    }
+                }
                 System.out.println(turnName[turn + 1] + " MOVE");
                 board.drawBoard();
                 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -95,8 +109,20 @@ public class Game {
                 int[] to = translateField(pos);
                 int success = board.movePiece(from, to, turn);
                 board.checkPromotion();
-
                 if(success == 0){
+                    int enemyCheck = board.checkCheck(turn * (-1));
+                    int myCheck = board.checkCheck(turn);
+                    if(turn < 0){
+                        board.setBlackCheck(enemyCheck);
+                        board.setWhiteCheck(myCheck);
+                    }
+                    else{
+                        board.setWhiteCheck(enemyCheck);
+                        board.setBlackCheck(myCheck);
+                    }
+                    if(enemyCheck == 1){
+                        System.out.println("CHECK");
+                    }
                     if(turn <0){
                         if(board.getBlackMoved()[0] >=0){
                             board.setMoved(turn);
