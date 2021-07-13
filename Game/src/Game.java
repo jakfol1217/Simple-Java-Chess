@@ -95,21 +95,20 @@ public class Game {
                 int[] to = translateField(pos);
                 int success = board.movePiece(from, to, turn);
                 board.checkPromotion();
-                if(turn <0){
-                    if(board.getBlackMoved()[0] >=0){
-                        board.setMoved(turn);
-                    }
-                    board.setBlackMoved(new int[] {-1, -1});
-                }
-                if(turn >0){
-                    if(board.getWhiteMoved()[0] >=0){
-                        board.setMoved(turn);
-                    }
-                    board.setWhiteMoved(new int[] {-1, -1});
-                }
 
                 if(success == 0){
-
+                    if(turn <0){
+                        if(board.getBlackMoved()[0] >=0){
+                            board.setMoved(turn);
+                        }
+                        board.setBlackMoved(new int[] {-1, -1});
+                    }
+                    if(turn >0){
+                        if(board.getWhiteMoved()[0] >=0){
+                            board.setMoved(turn);
+                        }
+                        board.setWhiteMoved(new int[] {-1, -1});
+                    }
                     turn = turn * -1;
                 }
             }

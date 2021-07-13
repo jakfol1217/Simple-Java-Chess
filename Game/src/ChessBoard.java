@@ -1,6 +1,5 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 public class ChessBoard {
     private Piece[][] board = new Piece[8][8];
@@ -11,11 +10,17 @@ public class ChessBoard {
         return whiteMoved;
     }
     public void setMoved(int color){
+
         if(color>0){
-            board[whiteMoved[0]][whiteMoved[1]].setMoved(0);
+            if(board[whiteMoved[0]][whiteMoved[1]].getColor() != 0){
+                board[whiteMoved[0]][whiteMoved[1]].setMoved(0);
+            }
+
         }
         if(color<0){
-            board[blackMoved[0]][blackMoved[1]].setMoved(0);
+            if(board[blackMoved[0]][blackMoved[1]].getColor() != 0){
+                board[blackMoved[0]][blackMoved[1]].setMoved(0);
+            }
         }
     }
     public void setWhiteMoved(int[] whiteMoved) {
@@ -29,7 +34,16 @@ public class ChessBoard {
     public void setBlackMoved(int[] blackMoved) {
         this.blackMoved = blackMoved;
     }
-    //public void enPassant();
+    public void enPassant(int color, int type, int loc0, int loc1){
+        if(type>0){
+            board[loc0][loc1 - color] = new Blank();
+
+        }
+        else{
+            board[loc0][loc1 + color] = new Blank();
+        }
+
+    }
     public ChessBoard() {
         this.setBoard();
     }
@@ -800,19 +814,26 @@ public class ChessBoard {
             if(ChessBoard.this.board[position[0]][position[1]].getColor() * this.color > 0){
                 return 1;
             }
+            if(location[1] - this.color >= 0 && location[1] - this.color < 8) {
+                if ((position[0] - location[0]) * (-1 * color) == 1 && position[1] - location[1] == 1 && board[location[0]][location[1] - this.color].getColor() * this.color == -1 && board[location[0]][location[1] - this.color].getMoved() == 1) {
+                    enPassant(this.color, 1, location[0], location[1]);
+                    System.out.println("EN PASSANT");
+                    return 0;
+                }
+            }
+            if(location[1] + this.color >= 0 && location[1] + this.color < 8){
+                if ((position[0] - location[0]) * (-1 * color) == 1 && position[1] - location[1] == -1 && board[location[0]][location[1] + this.color].getColor() * this.color == -1 && board[location[0]][location[1] + this.color].getMoved() == 1) {
+                    enPassant(this.color, -1, location[0], location[1]);
+                    System.out.println("EN PASSANT");
+                    return 0;
+                }
+            }
+
             if((position[0]-location[0]) * (-1 * color) == 1 && (Math.abs(position[1]-location[1])==1)){
                 if(board[position[0]][position[1]].getColor() * this.color >= 0){
                     return 1;
                 }
                 moved = 0;
-                return 0;
-            }
-            else if ((position[0]-location[0]) * (-1 * color) == 1 && position[1]-location[1]==1 && board[location[0]][location[1] + this.color].getColor() * this.color == -1 && board[location[0]][location[1] + this.color].getMoved() == 1) {
-                // enPassant();
-                return 0;
-            }
-            else if ((position[0]-location[0]) * (-1 * color) == 1 && position[1]-location[1]== -1 && board[location[0]][location[1] - this.color].getColor() * this.color == -1 && board[location[0]][location[1] - this.color].getMoved() == 1){
-                //enPassant();
                 return 0;
             }
             else if((position[0] - location[0]) * (-1 * color) == 1 && location[1] == position[1] && board[position[0]][position[1]].getColor() == 0){
