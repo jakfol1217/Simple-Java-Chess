@@ -815,11 +815,11 @@ public class ChessBoard {
                 //enPassant();
                 return 0;
             }
-            else if((position[0] - location[0]) * (-1 * color) == 1 && location[1] == position[1]){
+            else if((position[0] - location[0]) * (-1 * color) == 1 && location[1] == position[1] && board[position[0]][position[1]].getColor() == 0){
                 moved = 0;
                 return 0;
             }
-            else if((position[0] - location[0]) * (-1 * color) == 2 && location[1] == position[1] && moved == 2){
+            else if((position[0] - location[0]) * (-1 * color) == 2 && location[1] == position[1] && moved == 2 && board[position[0]][position[1]].getColor() == 0){
                 if(board[location[0]+ (-1 * color)][location[1] ].getColor() != 0){
                     return 1;
                 }
