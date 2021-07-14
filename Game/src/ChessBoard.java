@@ -421,6 +421,7 @@ public class ChessBoard {
                 board[0][6].setCastleable(0);
                 board[0][4] = new Blank();
                 board[0][7] = new Blank();
+                whiteKing = new int[]{0, 6};
                 return 0;
             }
         }
@@ -432,6 +433,7 @@ public class ChessBoard {
                 board[0][2].setCastleable(0);
                 board[0][0] = new Blank();
                 board[0][4] = new Blank();
+                whiteKing = new int[]{0, 2};
                 return 0;
             }
         }
@@ -443,6 +445,7 @@ public class ChessBoard {
                 board[7][6].setCastleable(0);
                 board[7][4] = new Blank();
                 board[7][7] = new Blank();
+                blackKing = new int[]{7,6};
                 return 0;
             }
         }
@@ -454,6 +457,7 @@ public class ChessBoard {
                 board[7][2].setCastleable(0);
                 board[7][0] = new Blank();
                 board[7][4] = new Blank();
+                blackKing = new int[]{7,2};
                 return 0;
             }
         }
