@@ -1,4 +1,10 @@
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 public class ChessBoard {
@@ -9,7 +15,7 @@ public class ChessBoard {
     private int[] whiteKing = {0, 4};
     private int whiteCheck = 0;
     private int blackCheck = 0;
-
+    private Board brd = new Board();
     public int getWhiteCheck() {
         return whiteCheck;
     }
@@ -323,6 +329,7 @@ public class ChessBoard {
         board[7][7] = new Rook(1, new int[]{7, 7});
     }
     public void drawBoard(){
+        /*
         System.out.print(1);
         System.out.print(" |");
         for(int i =0;i<8;i++){
@@ -339,7 +346,11 @@ public class ChessBoard {
         }
         System.out.println(" ");
         System.out.println("   a  b  c  d  e  f  g  h");
-
+*/
+        brd.drawGUI();
+    }
+    public void refreshBoard(){
+        brd.repaint();
     }
     public int checkColor(int turn, int[] from){
         if(turn * board[from[0]][from[1]].getColor() <=0){
@@ -498,7 +509,7 @@ public class ChessBoard {
         private int[] location;
         //0-OK, 1- sth wrong
         public abstract int checkMove(int[] position);
-        public abstract void draw();
+        public abstract BufferedImage draw();
     }
 
 
@@ -543,8 +554,8 @@ public class ChessBoard {
         }
 
         @Override
-        public void draw() {
-            System.out.print("  ");
+        public BufferedImage draw() {
+            return null;
         }
     }
 
@@ -612,12 +623,18 @@ public class ChessBoard {
         }
 
         @Override
-        public void draw() {
-            if (color == -1) {
-                System.out.print("WK");
-            } else {
-                System.out.print(("BK"));
+        public BufferedImage draw() {
+            BufferedImage image = null;
+            try {
+                if (color == -1) {
+                    image = ImageIO.read(new FileInputStream("pieces/whiteKing.jpg"));
+                } else {
+                    image = ImageIO.read(new FileInputStream("pieces/blackKing.jpg"));
+                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
+            return image;
         }
     }
 
@@ -751,13 +768,18 @@ public class ChessBoard {
         }
 
         @Override
-        public void draw() {
-            if(color == -1){
-                System.out.print("WQ");
+        public BufferedImage draw() {
+            BufferedImage image = null;
+            try {
+                if (color == -1) {
+                    image = ImageIO.read(new FileInputStream("pieces/whiteQueen.jpg"));
+                } else {
+                    image = ImageIO.read(new FileInputStream("pieces/blackQueen.jpg"));
+                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
-            else{
-                System.out.print(("BQ"));
-            }
+            return image;
         }
     }
 
@@ -858,13 +880,18 @@ public class ChessBoard {
         }
 
         @Override
-        public void draw() {
-            if(color == -1){
-                System.out.print("WR");
+        public BufferedImage draw() {
+            BufferedImage image = null;
+            try {
+                if (color == -1) {
+                    image = ImageIO.read(new FileInputStream("pieces/whiteRook.jpg"));
+                } else {
+                    image = ImageIO.read(new FileInputStream("pieces/blackRook.jpg"));
+                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
-            else{
-                System.out.print(("BR"));
-            }
+            return image;
         }
     }
 
@@ -959,13 +986,18 @@ public class ChessBoard {
         }
 
         @Override
-        public void draw() {
-            if(color == -1){
-                System.out.print("WB");
+        public BufferedImage draw() {
+            BufferedImage image = null;
+            try {
+                if (color == -1) {
+                    image = ImageIO.read(new FileInputStream("pieces/whiteBishop.jpg"));
+                } else {
+                    image = ImageIO.read(new FileInputStream("pieces/blackBishop.jpg"));
+                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
-            else{
-                System.out.print(("BB"));
-            }
+            return image;
         }
     }
 
@@ -1027,13 +1059,18 @@ public class ChessBoard {
         }
 
         @Override
-        public void draw() {
-            if(color == -1){
-                System.out.print("WN");
+        public BufferedImage draw() {
+            BufferedImage image = null;
+            try {
+                if (color == -1) {
+                    image = ImageIO.read(new FileInputStream("pieces/whiteKnight.jpg"));
+                } else {
+                    image = ImageIO.read(new FileInputStream("pieces/blackKnight.jpg"));
+                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
-            else{
-                System.out.print(("BN"));
-            }
+            return image;
         }
     }
 
@@ -1133,14 +1170,49 @@ public class ChessBoard {
         }
 
         @Override
-        public void draw() {
-            if(color == -1){
-                System.out.print("Wp");
+        public BufferedImage draw() {
+            BufferedImage image = null;
+            try {
+                if (color == -1) {
+                    image = ImageIO.read(new FileInputStream("pieces/whitePawn.jpg"));
+                } else {
+                    image = ImageIO.read(new FileInputStream("pieces/blackPawn.jpg"));
             }
-            else{
-                System.out.print(("Bp"));
+            }catch (Exception e){
+                e.printStackTrace();
             }
+            return image;
         }
     }
 
+    private class Board extends JPanel{
+        public void paint(Graphics g){
+            g.fillRect(0, 0, 400, 400);
+            for(int j = 0;j<400;j = j + 100){
+                for(int i = 0;i<400;i = i + 100){
+                    g.clearRect(i, j + 50,50,50);
+                }
+                for(int k = 50;k<400;k = k + 100){
+                    g.clearRect(k, j,50,50);
+                }
+            }
+
+            for(int i =0; i < 8;i++){
+                for(int j = 0;j < 8;j++){
+                    g.drawImage(board[i][j].draw(),i*50, j*50, 50, 50, null);
+                }
+            }
+        }
+        public void drawGUI() {
+            JFrame frame = new JFrame();
+            frame.setSize(600, 431);
+            frame.getContentPane().add(new GraphicTest());
+            frame.setLocationRelativeTo(null);
+            frame.setBackground(Color.LIGHT_GRAY);
+            Component mouseClick = new MyComponent();
+            frame.addMouseListener((MouseListener) mouseClick);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setVisible(true);
+        }
+    }
 }

@@ -36,7 +36,9 @@ public class Game {
 
     public void play(){
         try {
+            board.drawBoard();
             while(true) {
+                board.refreshBoard();
                 if(turn < 0){
                     if(board.getBlackCheck() == 1){
                         System.out.println("CHECKMATE");
@@ -52,7 +54,6 @@ public class Game {
                     }
                 }
                 System.out.println(turnName[turn + 1] + " MOVE");
-                board.drawBoard();
                 System.out.println("MOVE OR CASTLE");
                 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                 String piece = br.readLine();
