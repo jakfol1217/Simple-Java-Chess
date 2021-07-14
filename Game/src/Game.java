@@ -53,6 +53,7 @@ public class Game {
                 }
                 System.out.println(turnName[turn + 1] + " MOVE");
                 board.drawBoard();
+                System.out.println("MOVE OR CASTLE");
                 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                 String piece = br.readLine();
                 if(piece.equals("exit")){
@@ -79,6 +80,8 @@ public class Game {
                         continue;
                     }
                 }
+                int[] from = translateField(piece);
+                if(board.checkColor(turn, from)>0){continue;}
                 System.out.println("WHERE TO?");
                 String pos = br.readLine();
                 if(pos.equals("exit")){
@@ -105,7 +108,6 @@ public class Game {
                         continue;
                     }
                 }
-                int[] from = translateField(piece);
                 int[] to = translateField(pos);
                 int success = board.movePiece(from, to, turn);
                 board.checkPromotion();
