@@ -99,6 +99,7 @@ public class Game {
             if(turn < 0){
                 if(board.getBlackCheck() == 1){
                     gameOver = true;
+                    System.out.println("CHECKMATE " + turnName[turn + 1] + " WIN");
                     return "CHECKMATE " + turnName[turn + 1] + " WIN";
 
                 }
@@ -106,6 +107,7 @@ public class Game {
             else {
                 if (board.getWhiteCheck() == 1) {
                     gameOver = true;
+                    System.out.println("CHECKMATE " + turnName[turn + 1] + " WIN");
                     return "CHECKMATE " + turnName[turn + 1] + " WIN";
                 }
             }

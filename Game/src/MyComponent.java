@@ -7,7 +7,6 @@ public class MyComponent extends JComponent implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        //System.out.println( + ", " + );
         int movex = (mouseEvent.getX() - 7) / 50;
         int movey = (mouseEvent.getY() - 31) / 50;
 
@@ -15,7 +14,6 @@ public class MyComponent extends JComponent implements MouseListener {
             if (!drawer.getGraphicTest().getGame().isSelected()) {
                 drawer.getGraphicTest().getGame().select(movey, movex);
             } else {
-                System.out.println(movex + ", " + movey);
                 drawer.getGraphicTest().getGame().move(movey, movex);
                 drawer.getFrame().repaint();
             }

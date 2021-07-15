@@ -405,47 +405,35 @@ public class ChessBoard {
         if(color < 0 && type > 0){
             if(board[0][4].getCastleable() * board[0][7].getCastleable() == 1 && board[0][5].getColor() == 0 && board[0][6].getColor() == 0){
                 board[0][5] =  new Rook(color, new int[]{0,5});
-                board[0][6] =  new King(color, new int[]{0,6});
                 board[0][5].setCastleable(0);
-                board[0][6].setCastleable(0);
-                board[0][4] = new Blank();
                 board[0][7] = new Blank();
                 whiteKing = new int[]{0, 6};
                 return 0;
             }
         }
-        if(color <0 && type < 0){
+        if(color < 0 && type < 0){
             if(board[0][4].getCastleable() * board[0][0].getCastleable() == 1 && board[0][1].getColor() == 0 && board[0][2].getColor() == 0 && board[0][3].getColor() == 0){
                 board[0][3] =  new Rook(color, new int[]{0,3});
-                board[0][2] =  new King(color, new int[]{0,2});
                 board[0][3].setCastleable(0);
-                board[0][2].setCastleable(0);
                 board[0][0] = new Blank();
-                board[0][4] = new Blank();
                 whiteKing = new int[]{0, 2};
                 return 0;
             }
         }
-        if(color < 0 && type > 0){
+        if(color > 0 && type > 0){
             if(board[7][4].getCastleable() * board[7][7].getCastleable() == 1 && board[7][5].getColor() == 0 && board[7][6].getColor() == 0){
                 board[7][5] =  new Rook(color, new int[]{7,5});
-                board[7][6] =  new King(color, new int[]{7,6});
                 board[7][5].setCastleable(0);
-                board[7][6].setCastleable(0);
-                board[7][4] = new Blank();
                 board[7][7] = new Blank();
                 blackKing = new int[]{7,6};
                 return 0;
             }
         }
-        if(color <0 && type < 0){
+        if(color > 0 && type < 0){
             if(board[7][4].getCastleable() * board[7][0].getCastleable() == 1 && board[7][1].getColor() == 0 && board[7][2].getColor() == 0 && board[7][3].getColor() == 0){
                 board[7][3] =  new Rook(color, new int[]{7,3});
-                board[7][2] =  new King(color, new int[]{7,2});
                 board[7][3].setCastleable(0);
-                board[7][2].setCastleable(0);
                 board[7][0] = new Blank();
-                board[7][4] = new Blank();
                 blackKing = new int[]{7,2};
                 return 0;
             }
@@ -579,7 +567,20 @@ public class ChessBoard {
                 }
                 castleable = 0;
                 return 0;
-            } else {
+            } else if(position[0] == location[0] && position[1]- location[1] == 2 && this.castleable == 1 && board[position[0]][location[1] + 3].getCastleable() == 1){
+                int success =  castle(this.color, 1);
+                if(success == 0){
+                    castleable = 0;
+                }
+                return success;
+            }else if(position[0] == location[0] && location[1] - position[1] == 2 && this.castleable == 1 && board[position[0]][location[1] - 4].getCastleable() == 1){
+                int success =castle(this.color, -1);
+                if(success == 0){
+                    castleable = 0;
+                }
+                return success;
+            }
+            else {
                 return 1;
             }
         }
