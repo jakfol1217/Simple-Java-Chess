@@ -7,8 +7,8 @@ public class Game {
     private int turn = -1;
     private static final String[] turnName = {"WHITE", "", "BLACK"};
     private static final Pattern fieldPattern = Pattern.compile("[a-hA-H][1-8]");
-    private int selectedx;
-    private int selectedy;
+    private int selectedx = -1;
+    private int selectedy = -1;
     private boolean selected = false;
     private boolean gameOver = false;
 
@@ -94,6 +94,8 @@ public class Game {
             }
             turn = turn * -1;
             selected = false;
+            selectedx = -1;
+            selectedy = -1;
             if(turn < 0){
                 if(board.getBlackCheck() == 1){
                     gameOver = true;
