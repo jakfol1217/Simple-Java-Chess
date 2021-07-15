@@ -12,6 +12,12 @@ public class Game {
     private boolean selected = false;
     private boolean gameOver = false;
     private String errorText = " ";
+    private String win = " ";
+
+    public String getWin() {
+        return win;
+    }
+
     public String[] getTurnName() {
         return turnName;
     }
@@ -51,6 +57,7 @@ public class Game {
     public void select(int y, int x){
         if(turn < 0){
             y = 7 - y;
+        }else{
             x = 7 - x;
         }
         try {
@@ -72,6 +79,8 @@ public class Game {
         try {
             if(turn < 0){
                 y = 7 - y;
+            }
+            else{
                 x = 7 - x;
             }
             int success = board.movePiece(new int[]{selectedy, selectedx}, new int[]{y, x}, turn);
@@ -87,7 +96,7 @@ public class Game {
                     board.setBlackCheck(myCheck);
                 }
                 if (enemyCheck == 1) {
-                    errorText = "CHECK";
+                    win = "CHECK";
                 }
                 if (turn < 0) {
                     if (board.getBlackMoved()[0] >= 0) {
@@ -108,13 +117,13 @@ public class Game {
                 if (turn < 0) {
                     if (board.getBlackCheck() == 1) {
                         gameOver = true;
-                        errorText = "CHECKMATE " + turnName[turn + 1] + " WIN";
+                        win = "CHECKMATE " + turnName[turn + 1] + " WIN";
 
                     }
                 } else {
                     if (board.getWhiteCheck() == 1) {
                         gameOver = true;
-                        errorText = "CHECKMATE " + turnName[turn + 1] + " WIN";
+                        win = "CHECKMATE " + turnName[turn + 1] + " WIN";
                     }
                 }
                 errorText =  " ";

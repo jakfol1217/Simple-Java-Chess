@@ -20,14 +20,14 @@ public class GraphicTest extends JPanel{
         if(game.getTurn() < 0) {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
-                    g.drawImage(game.getBoard().drawPiece(i, j), (7 - j) * 50, (7 - i) * 50, 50, 50, null);
+                    g.drawImage(game.getBoard().drawPiece(i, j),  j * 50, (7 - i) * 50, 50, 50, null);
                 }
             }
         }
         else{
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
-                    g.drawImage(game.getBoard().drawPiece(i, j), j * 50, i * 50, 50, 50, null);
+                    g.drawImage(game.getBoard().drawPiece(i, j), (7 - j) * 50, i * 50, 50, 50, null);
                 }
             }
         }
@@ -35,8 +35,10 @@ public class GraphicTest extends JPanel{
         String turnName = game.getTurnName()[game.getTurn() + 1];
         g.drawString(turnName + " MOVE", 420, 20);
         String errorText = game.getErrorText();
-        g.setFont(new Font("Comic Sans", Font.PLAIN, 15));
+        g.setFont(new Font("Comic Sans", Font.PLAIN, 12));
         g.drawString(errorText, 405, 100);
+        String win = game.getWin();
+        g.drawString(win, 405, 50);
 
     }
 
