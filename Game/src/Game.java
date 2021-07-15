@@ -5,12 +5,24 @@ import java.util.regex.Pattern;
 
 public class Game {
     private int turn = -1;
-    private static final String[] turnName = {"WHITE", "", "BLACK"};
+    private final String[] turnName = {"WHITE", "", "BLACK"};
     private static final Pattern fieldPattern = Pattern.compile("[a-hA-H][1-8]");
     private int selectedx = -1;
     private int selectedy = -1;
     private boolean selected = false;
     private boolean gameOver = false;
+    private String errorText = " ";
+    public String[] getTurnName() {
+        return turnName;
+    }
+
+    public String getErrorText() {
+        return errorText;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
 
     public boolean isSelected() {
         return selected;
@@ -35,88 +47,77 @@ public class Game {
         this.board = new ChessBoard();
     }
 
-    //Converts the field number passed by the player to array position for ChessBoard
-    public static int[] translateField(String position) throws Exception {
-        if(fieldPattern.matcher(position).matches()) {
-            String position1 = position.substring(0, 1);
-            int position2 = Integer.parseInt(position.substring(1, 2));
-            return new int[]{position2-1, fieldNames.get(position1)};
-        } else{
-            throw new Exception("WRONG FIELD");
-        }
-    }
-    public String select(int y, int x){
-        if(x < 0 || x >8 || y <0 || y > 8){
-            return "WRONG FIELD";
-        }
-        int col = board.checkColor(turn, new int[]{y, x});
-        if(col == 1){
-            return "INVALID PIECE CHOSEN";
-        }
-        else{
-            selected = true;
-            selectedy = y;
-            selectedx = x;
-            return "";
-        }
-    }
-    public String move(int y, int x){
-        if(x < 0 || x >8 || y <0 || y > 8) {
-            return "WRONG FIELD";
-        }
-            int success = board.movePiece(new int[]{selectedy, selectedx}, new int[]{y,x}, turn);
-        board.checkPromotion();
-        if(success == 0){
-            int enemyCheck = board.checkCheck(turn * (-1));
-            int myCheck = board.checkCheck(turn);
-            if(turn < 0){
-                board.setBlackCheck(enemyCheck);
-                board.setWhiteCheck(myCheck);
-            }
-            else{
-                board.setWhiteCheck(enemyCheck);
-                board.setBlackCheck(myCheck);
-            }
-            if(enemyCheck == 1){
-                System.out.println("CHECK");
-            }
-            if(turn <0){
-                if(board.getBlackMoved()[0] >=0){
-                    board.setMoved(turn);
-                }
-                board.setBlackMoved(new int[] {-1, -1});
-            }
-            if(turn >0){
-                if(board.getWhiteMoved()[0] >=0){
-                    board.setMoved(turn);
-                }
-                board.setWhiteMoved(new int[] {-1, -1});
-            }
-            turn = turn * -1;
-            selected = false;
-            selectedx = -1;
-            selectedy = -1;
-            if(turn < 0){
-                if(board.getBlackCheck() == 1){
-                    gameOver = true;
-                    System.out.println("CHECKMATE " + turnName[turn + 1] + " WIN");
-                    return "CHECKMATE " + turnName[turn + 1] + " WIN";
 
-                }
+    public void select(int y, int x){
+        try {
+            int col = board.checkColor(turn, new int[]{y, x});
+            if (col == 1) {
+                errorText =  "INVALID PIECE CHOSEN";
+            } else {
+                selected = true;
+                selectedy = y;
+                selectedx = x;
+                errorText =  " ";
             }
-            else {
-                if (board.getWhiteCheck() == 1) {
-                    gameOver = true;
-                    System.out.println("CHECKMATE " + turnName[turn + 1] + " WIN");
-                    return "CHECKMATE " + turnName[turn + 1] + " WIN";
-                }
-            }
-            return "";
+        }catch (ArrayIndexOutOfBoundsException e){
+            errorText = "WRONG FIELD";
         }
-        else{
-            //Prone to change
-            selected = false;
-            return "CAN'T MOVE THERE";
+    }
+    public void move(int y, int x){
+        try {
+            int success = board.movePiece(new int[]{selectedy, selectedx}, new int[]{y, x}, turn);
+            board.checkPromotion();
+            if (success == 0) {
+                int enemyCheck = board.checkCheck(turn * (-1));
+                int myCheck = board.checkCheck(turn);
+                if (turn < 0) {
+                    board.setBlackCheck(enemyCheck);
+                    board.setWhiteCheck(myCheck);
+                } else {
+                    board.setWhiteCheck(enemyCheck);
+                    board.setBlackCheck(myCheck);
+                }
+                if (enemyCheck == 1) {
+                    System.out.println("CHECK");
+                }
+                if (turn < 0) {
+                    if (board.getBlackMoved()[0] >= 0) {
+                        board.setMoved(turn);
+                    }
+                    board.setBlackMoved(new int[]{-1, -1});
+                }
+                if (turn > 0) {
+                    if (board.getWhiteMoved()[0] >= 0) {
+                        board.setMoved(turn);
+                    }
+                    board.setWhiteMoved(new int[]{-1, -1});
+                }
+                turn = turn * -1;
+                selected = false;
+                selectedx = -1;
+                selectedy = -1;
+                if (turn < 0) {
+                    if (board.getBlackCheck() == 1) {
+                        gameOver = true;
+                        System.out.println("CHECKMATE " + turnName[turn + 1] + " WIN");
+                        errorText = "CHECKMATE " + turnName[turn + 1] + " WIN";
+
+                    }
+                } else {
+                    if (board.getWhiteCheck() == 1) {
+                        gameOver = true;
+                        System.out.println("CHECKMATE " + turnName[turn + 1] + " WIN");
+                        errorText = "CHECKMATE " + turnName[turn + 1] + " WIN";
+                    }
+                }
+                errorText =  " ";
+            } else {
+                //Prone to change
+                selected = false;
+                errorText =  "CAN'T MOVE THERE";
+            }
+        }catch(IndexOutOfBoundsException e){
+            errorText = "WRONG FIELD";
         }
     }
     /*

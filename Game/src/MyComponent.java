@@ -15,13 +15,13 @@ public class MyComponent extends JComponent implements MouseListener {
                 drawer.getGraphicTest().getGame().select(movey, movex);
             } else {
                 drawer.getGraphicTest().getGame().move(movey, movex);
-                drawer.getFrame().repaint();
+
             }
         }
         else {
 
         }
-
+        drawer.getFrame().repaint();
 
 
 

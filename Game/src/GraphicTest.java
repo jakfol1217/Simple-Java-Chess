@@ -27,6 +27,12 @@ public class GraphicTest extends JPanel{
                g.drawImage(game.getBoard().drawPiece(i,j), j*50, i*50, 50, 50, null);
             }
         }
+        g.setFont(new Font("Comic Sans", Font.PLAIN, 20));
+        String turnName = game.getTurnName()[game.getTurn() + 1];
+        g.drawString(turnName + " MOVE", 420, 20);
+        String errorText = game.getErrorText();
+        g.setFont(new Font("Comic Sans", Font.PLAIN, 15));
+        g.drawString(errorText, 410, 100);
 
     }
 

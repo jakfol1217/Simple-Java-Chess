@@ -332,7 +332,6 @@ public class ChessBoard {
 
     public int checkColor(int turn, int[] from){
         if(turn * board[from[0]][from[1]].getColor() <=0){
-            System.out.println("INVALID PIECE CHOSEN");
             return 1;
         }
         return 0;
@@ -340,7 +339,6 @@ public class ChessBoard {
     public int movePiece(int[] from, int[] to, int turn){
 
         if(board[from[0]][from[1]].checkMove(to) == 1){
-            System.out.println("CAN'T MOVE THERE");
             return 1;
         }
         Piece piece = board[from[0]][from[1]];
