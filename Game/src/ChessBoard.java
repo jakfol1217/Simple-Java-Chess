@@ -1,7 +1,4 @@
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -617,12 +614,12 @@ public class ChessBoard {
             BufferedImage image = null;
             try {
                 if(chosen){
-                    image = ImageIO.read(new FileInputStream("pieces/chosenKing.jpg"));
+                    image = ImageIO.read(new FileInputStream("pieces/chosenKing.png"));
                 }
                 else if (color == -1) {
-                    image = ImageIO.read(new FileInputStream("pieces/whiteKing.jpg"));
+                    image = ImageIO.read(new FileInputStream("pieces/whiteKing.png"));
                 } else {
-                    image = ImageIO.read(new FileInputStream("pieces/blackKing.jpg"));
+                    image = ImageIO.read(new FileInputStream("pieces/blackKing.png"));
                 }
             }catch (Exception e){
                 e.printStackTrace();
@@ -770,12 +767,12 @@ public class ChessBoard {
             BufferedImage image = null;
             try {
                 if(chosen){
-                    image = ImageIO.read(new FileInputStream("pieces/chosenQueen.jpg"));
+                    image = ImageIO.read(new FileInputStream("pieces/chosenQueen.png"));
                 }
                 else if (color == -1) {
-                    image = ImageIO.read(new FileInputStream("pieces/whiteQueen.jpg"));
+                    image = ImageIO.read(new FileInputStream("pieces/whiteQueen.png"));
                 } else {
-                    image = ImageIO.read(new FileInputStream("pieces/blackQueen.jpg"));
+                    image = ImageIO.read(new FileInputStream("pieces/blackQueen.png"));
                 }
             }catch (Exception e){
                 e.printStackTrace();
@@ -890,12 +887,12 @@ public class ChessBoard {
             BufferedImage image = null;
             try {
                 if(chosen){
-                    image = ImageIO.read(new FileInputStream("pieces/chosenRook.jpg"));
+                    image = ImageIO.read(new FileInputStream("pieces/chosenRook.png"));
                 }
                 else if (color == -1) {
-                    image = ImageIO.read(new FileInputStream("pieces/whiteRook.jpg"));
+                    image = ImageIO.read(new FileInputStream("pieces/whiteRook.png"));
                 } else {
-                    image = ImageIO.read(new FileInputStream("pieces/blackRook.jpg"));
+                    image = ImageIO.read(new FileInputStream("pieces/blackRook.png"));
                 }
             }catch (Exception e){
                 e.printStackTrace();
@@ -1004,12 +1001,12 @@ public class ChessBoard {
             BufferedImage image = null;
             try {
                 if(chosen){
-                    image = ImageIO.read(new FileInputStream("pieces/chosenBishop.jpg"));
+                    image = ImageIO.read(new FileInputStream("pieces/chosenBishop.png"));
                 }
                 else if (color == -1) {
-                    image = ImageIO.read(new FileInputStream("pieces/whiteBishop.jpg"));
+                    image = ImageIO.read(new FileInputStream("pieces/whiteBishop.png"));
                 } else {
-                    image = ImageIO.read(new FileInputStream("pieces/blackBishop.jpg"));
+                    image = ImageIO.read(new FileInputStream("pieces/blackBishop.png"));
                 }
             }catch (Exception e){
                 e.printStackTrace();
@@ -1085,12 +1082,12 @@ public class ChessBoard {
             BufferedImage image = null;
             try {
                 if(chosen){
-                    image = ImageIO.read(new FileInputStream("pieces/chosenKnight.jpg"));
+                    image = ImageIO.read(new FileInputStream("pieces/chosenKnight.png"));
                 }
                 else if (color == -1) {
-                    image = ImageIO.read(new FileInputStream("pieces/whiteKnight.jpg"));
+                    image = ImageIO.read(new FileInputStream("pieces/whiteKnight.png"));
                 } else {
-                    image = ImageIO.read(new FileInputStream("pieces/blackKnight.jpg"));
+                    image = ImageIO.read(new FileInputStream("pieces/blackKnight.png"));
                 }
             }catch (Exception e){
                 e.printStackTrace();
@@ -1204,12 +1201,12 @@ public class ChessBoard {
             BufferedImage image = null;
             try {
                 if(chosen){
-                    image = ImageIO.read(new FileInputStream("pieces/chosenPawn.jpg"));
+                    image = ImageIO.read(new FileInputStream("pieces/chosenPawn.png"));
                 }
                 else if (color == -1) {
-                    image = ImageIO.read(new FileInputStream("pieces/whitePawn.jpg"));
+                    image = ImageIO.read(new FileInputStream("pieces/whitePawn.png"));
                 } else {
-                    image = ImageIO.read(new FileInputStream("pieces/blackPawn.jpg"));
+                    image = ImageIO.read(new FileInputStream("pieces/blackPawn.png"));
             }
             }catch (Exception e){
                 e.printStackTrace();
