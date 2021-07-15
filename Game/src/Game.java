@@ -7,6 +7,8 @@ public class Game {
     private int turn = -1;
     private static final String[] turnName = {"WHITE", "", "BLACK"};
     private static final Pattern fieldPattern = Pattern.compile("[a-hA-H][1-8]");
+    private int selectedx;
+    private int selectedy;
     private boolean selected = false;
     private boolean gameOver = false;
 
@@ -53,14 +55,16 @@ public class Game {
         }
         else{
             selected = true;
+            selectedy = y;
+            selectedx = x;
             return "";
         }
     }
-    public String move(int y1, int x1, int y, int x){
-        if(x < 0 || x >8 || y <0 || y > 8 || y1 < 0 || y1 > 8 || x1 <0 || x1 > 8) {
+    public String move(int y, int x){
+        if(x < 0 || x >8 || y <0 || y > 8) {
             return "WRONG FIELD";
         }
-            int success = board.movePiece(new int[]{y1, x1}, new int[]{y,x}, turn);
+            int success = board.movePiece(new int[]{selectedy, selectedx}, new int[]{y,x}, turn);
         board.checkPromotion();
         if(success == 0){
             int enemyCheck = board.checkCheck(turn * (-1));

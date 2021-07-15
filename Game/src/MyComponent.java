@@ -4,8 +4,6 @@ import java.awt.event.MouseListener;
 
 public class MyComponent extends JComponent implements MouseListener {
     private Drawer drawer = new Drawer(this);
-    private int selectedx;
-    private int selectedy;
     private int movex;
     private int movey;
     @Override
@@ -15,15 +13,13 @@ public class MyComponent extends JComponent implements MouseListener {
         /*
         if(!drawer.getGraphicTest().getGame().isGameOver()) {
             if (!drawer.getGraphicTest().getGame().isSelected()) {
-                selectedx = (mouseEvent.getX() - 7) / 50;
-                selectedy = (mouseEvent.getY() - 31) / 50;
-                drawer.getGraphicTest().getGame().select(selectedy , selectedx );
+
+                drawer.getGraphicTest().getGame().select((mouseEvent.getY() - 31) / 50, (mouseEvent.getX() - 7) / 50);
             } else {
                 movex = mouseEvent.getX() / 50;
                 movey = mouseEvent.getY() / 50;
-                System.out.println(selectedx + ", " + selectedy);
                 System.out.println(movex + ", " + movey);
-                drawer.getGraphicTest().getGame().move(selectedy, selectedx, movey, movex);
+                drawer.getGraphicTest().getGame().move(movey, movex);
                 drawer.getFrame().repaint();
             }
         }
