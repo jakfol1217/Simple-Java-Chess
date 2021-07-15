@@ -49,6 +49,10 @@ public class Game {
 
 
     public void select(int y, int x){
+        if(turn < 0){
+            y = 7 - y;
+            x = 7 - x;
+        }
         try {
             int col = board.checkColor(turn, new int[]{y, x});
             if (col == 1) {
@@ -65,6 +69,10 @@ public class Game {
     }
     public void move(int y, int x){
         try {
+            if(turn < 0){
+                y = 7 - y;
+                x = 7 - x;
+            }
             int success = board.movePiece(new int[]{selectedy, selectedx}, new int[]{y, x}, turn);
             board.checkPromotion();
             if (success == 0) {
