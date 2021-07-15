@@ -32,7 +32,7 @@ public class GraphicTest extends JPanel{
         g.drawString(turnName + " MOVE", 420, 20);
         String errorText = game.getErrorText();
         g.setFont(new Font("Comic Sans", Font.PLAIN, 15));
-        g.drawString(errorText, 410, 100);
+        g.drawString(errorText, 405, 100);
 
     }
 

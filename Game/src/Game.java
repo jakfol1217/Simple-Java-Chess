@@ -78,7 +78,7 @@ public class Game {
                     board.setBlackCheck(myCheck);
                 }
                 if (enemyCheck == 1) {
-                    System.out.println("CHECK");
+                    errorText = "CHECK";
                 }
                 if (turn < 0) {
                     if (board.getBlackMoved()[0] >= 0) {
@@ -99,14 +99,12 @@ public class Game {
                 if (turn < 0) {
                     if (board.getBlackCheck() == 1) {
                         gameOver = true;
-                        System.out.println("CHECKMATE " + turnName[turn + 1] + " WIN");
                         errorText = "CHECKMATE " + turnName[turn + 1] + " WIN";
 
                     }
                 } else {
                     if (board.getWhiteCheck() == 1) {
                         gameOver = true;
-                        System.out.println("CHECKMATE " + turnName[turn + 1] + " WIN");
                         errorText = "CHECKMATE " + turnName[turn + 1] + " WIN";
                     }
                 }
@@ -120,118 +118,6 @@ public class Game {
             errorText = "WRONG FIELD";
         }
     }
-    /*
-    public void play(){
-        try {
-            while(true) {
-                if(turn < 0){
-                    if(board.getBlackCheck() == 1){
-                        System.out.println("CHECKMATE");
-                        System.out.println(turnName[turn + 1] + " WIN");
-                        break;
-                    }
-                }
-                else{
-                    if(board.getWhiteCheck() == 1){
-                        System.out.println("CHECKMATE");
-                        System.out.println(turnName[turn + 1] + " WIN");
-                        break;
-                    }
-                }
-                System.out.println(turnName[turn + 1] + " MOVE");
-                System.out.println("MOVE OR CASTLE");
-                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-                String piece = br.readLine();
-                if(piece.equals("exit")){
-                    System.out.println(turnName[(-1 * turn) + 1] + " WIN");
-                    break;
-                }
-                if(piece.equals("cs")){
-                    if(board.castle(turn, 1) == 0){
-                        turn = turn * -1;
-                        continue;
-                    }
-                    else{
-                        System.out.println("CAN'T CASTLE");
-                        continue;
-                    }
-                }
-                if(piece.equals("cl")){
-                    if(board.castle(turn, -1) == 0){
-                        turn = turn * -1;
-                        continue;
-                    }
-                    else{
-                        System.out.println("CAN'T CASTLE");
-                        continue;
-                    }
-                }
-                int[] from = translateField(piece);
-                if(board.checkColor(turn, from)>0){continue;}
-                System.out.println("WHERE TO?");
-                String pos = br.readLine();
-                if(pos.equals("exit")){
-                    System.out.println(turnName[(-1 * turn) + 1] + " WIN");
-                    break;
-                }
-                if(pos.equals("cs")){
-                    if(board.castle(turn, 1) == 0){
-                        turn = turn * -1;
-                        continue;
-                    }
-                    else{
-                        System.out.println("CAN'T CASTLE");
-                        continue;
-                    }
-                }
-                if(pos.equals("cl")){
-                    if(board.castle(turn, -1) == 0){
-                        turn = turn * -1;
-                        continue;
-                    }
-                    else{
-                        System.out.println("CAN'T CASTLE");
-                        continue;
-                    }
-                }
-                int[] to = translateField(pos);
-                int success = board.movePiece(from, to, turn);
-                board.checkPromotion();
-                if(success == 0){
-                    int enemyCheck = board.checkCheck(turn * (-1));
-                    int myCheck = board.checkCheck(turn);
-                    if(turn < 0){
-                        board.setBlackCheck(enemyCheck);
-                        board.setWhiteCheck(myCheck);
-                    }
-                    else{
-                        board.setWhiteCheck(enemyCheck);
-                        board.setBlackCheck(myCheck);
-                    }
-                    if(enemyCheck == 1){
-                        System.out.println("CHECK");
-                    }
-                    if(turn <0){
-                        if(board.getBlackMoved()[0] >=0){
-                            board.setMoved(turn);
-                        }
-                        board.setBlackMoved(new int[] {-1, -1});
-                    }
-                    if(turn >0){
-                        if(board.getWhiteMoved()[0] >=0){
-                            board.setMoved(turn);
-                        }
-                        board.setWhiteMoved(new int[] {-1, -1});
-                    }
-                    turn = turn * -1;
-                }
-            }
-        }catch (Exception e){
-            System.out.println("WRONG FIELD");
-            this.play();
-        }
-    }
-*/
 
     public boolean isGameOver() {
         return gameOver;
