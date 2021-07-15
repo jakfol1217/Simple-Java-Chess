@@ -12,7 +12,7 @@ public class MyComponent extends JComponent implements MouseListener {
     public void mouseClicked(MouseEvent mouseEvent) {
         //System.out.println((mouseEvent.getX() - 7) / 50 + ", " + (mouseEvent.getY() - 31) / 50);
 
-
+        /*
         if(!drawer.getGraphicTest().getGame().isGameOver()) {
             if (!drawer.getGraphicTest().getGame().isSelected()) {
                 selectedx = (mouseEvent.getX() - 7) / 50;
@@ -29,8 +29,9 @@ public class MyComponent extends JComponent implements MouseListener {
         }
         else {
 
-        };
+        }
 
+         */
 
 
     }
