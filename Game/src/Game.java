@@ -61,6 +61,7 @@ public class Game {
                 selected = true;
                 selectedy = y;
                 selectedx = x;
+                board.setChosen(selectedy, selectedx, true);
                 errorText =  " ";
             }
         }catch (ArrayIndexOutOfBoundsException e){
@@ -101,7 +102,7 @@ public class Game {
                     board.setWhiteMoved(new int[]{-1, -1});
                 }
                 turn = turn * -1;
-                selected = false;
+                board.setChosen(y, x, false);
                 selectedx = -1;
                 selectedy = -1;
                 if (turn < 0) {
@@ -119,9 +120,10 @@ public class Game {
                 errorText =  " ";
             } else {
                 //Prone to change
-                selected = false;
+                board.setChosen(selectedy, selectedx, false);
                 errorText =  "CAN'T MOVE THERE";
             }
+            selected = false;
         }catch(IndexOutOfBoundsException e){
             errorText = "WRONG FIELD";
         }

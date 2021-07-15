@@ -30,7 +30,7 @@ public class ChessBoard {
     public void setBlackCheck(int blackCheck) {
         this.blackCheck = blackCheck;
     }
-
+    public void setChosen(int y, int x, boolean chosen){board[y][x].setChosen(chosen);}
     public int[] getBlackKing() {
         return blackKing;
     }
@@ -443,6 +443,11 @@ public class ChessBoard {
 
         private int color;
         private int moved = -1;
+        private boolean chosen = false;
+
+        public void setChosen(boolean chosen) {
+            this.chosen = chosen;
+        }
 
         public int getMoved() {
             return moved;
@@ -484,7 +489,11 @@ public class ChessBoard {
         private int color;
         private int castleable = 0;
         private int moved = -1;
+        private boolean chosen = false;
 
+        public void setChosen(boolean chosen) {
+            this.chosen = false;
+        }
         public int getMoved() {
             return moved;
         }
@@ -531,7 +540,11 @@ public class ChessBoard {
         private int[] location;
         private int castleable = 1;
         private int moved = -1;
+        private boolean chosen = false;
 
+        public void setChosen(boolean chosen) {
+            this.chosen = chosen;
+        }
         public int getMoved() {
             return moved;
         }
@@ -603,7 +616,10 @@ public class ChessBoard {
         public BufferedImage draw() {
             BufferedImage image = null;
             try {
-                if (color == -1) {
+                if(chosen){
+                    image = ImageIO.read(new FileInputStream("pieces/chosenKing.jpg"));
+                }
+                else if (color == -1) {
                     image = ImageIO.read(new FileInputStream("pieces/whiteKing.jpg"));
                 } else {
                     image = ImageIO.read(new FileInputStream("pieces/blackKing.jpg"));
@@ -623,6 +639,11 @@ public class ChessBoard {
         private int[] location;
         private int castleable = 0;
         private int moved = -1;
+        private boolean chosen = false;
+
+        public void setChosen(boolean chosen) {
+            this.chosen = chosen;
+        }
 
         public int getMoved() {
             return moved;
@@ -748,7 +769,10 @@ public class ChessBoard {
         public BufferedImage draw() {
             BufferedImage image = null;
             try {
-                if (color == -1) {
+                if(chosen){
+                    image = ImageIO.read(new FileInputStream("pieces/chosenQueen.jpg"));
+                }
+                else if (color == -1) {
                     image = ImageIO.read(new FileInputStream("pieces/whiteQueen.jpg"));
                 } else {
                     image = ImageIO.read(new FileInputStream("pieces/blackQueen.jpg"));
@@ -769,6 +793,11 @@ public class ChessBoard {
         private int[] location;
         private int castleable = 1;
         private int moved = -1;
+        private boolean chosen = false;
+
+        public void setChosen(boolean chosen) {
+            this.chosen = chosen;
+        }
 
         public int getMoved() {
             return moved;
@@ -860,7 +889,10 @@ public class ChessBoard {
         public BufferedImage draw() {
             BufferedImage image = null;
             try {
-                if (color == -1) {
+                if(chosen){
+                    image = ImageIO.read(new FileInputStream("pieces/chosenRook.jpg"));
+                }
+                else if (color == -1) {
                     image = ImageIO.read(new FileInputStream("pieces/whiteRook.jpg"));
                 } else {
                     image = ImageIO.read(new FileInputStream("pieces/blackRook.jpg"));
@@ -880,6 +912,11 @@ public class ChessBoard {
         private int[] location;
         private int castleable = 0;
         private int moved = -1;
+        private boolean chosen = false;
+
+        public void setChosen(boolean chosen) {
+            this.chosen = chosen;
+        }
 
         public int getMoved() {
             return moved;
@@ -966,7 +1003,10 @@ public class ChessBoard {
         public BufferedImage draw() {
             BufferedImage image = null;
             try {
-                if (color == -1) {
+                if(chosen){
+                    image = ImageIO.read(new FileInputStream("pieces/chosenBishop.jpg"));
+                }
+                else if (color == -1) {
                     image = ImageIO.read(new FileInputStream("pieces/whiteBishop.jpg"));
                 } else {
                     image = ImageIO.read(new FileInputStream("pieces/blackBishop.jpg"));
@@ -986,6 +1026,11 @@ public class ChessBoard {
         private int[] location;
         private int castleable = 0;
         private int moved = -1;
+        private boolean chosen = false;
+
+        public void setChosen(boolean chosen) {
+            this.chosen = chosen;
+        }
 
         public int getMoved() {
             return moved;
@@ -1039,7 +1084,10 @@ public class ChessBoard {
         public BufferedImage draw() {
             BufferedImage image = null;
             try {
-                if (color == -1) {
+                if(chosen){
+                    image = ImageIO.read(new FileInputStream("pieces/chosenKnight.jpg"));
+                }
+                else if (color == -1) {
                     image = ImageIO.read(new FileInputStream("pieces/whiteKnight.jpg"));
                 } else {
                     image = ImageIO.read(new FileInputStream("pieces/blackKnight.jpg"));
@@ -1059,6 +1107,11 @@ public class ChessBoard {
         private int[] location;
         private int moved = 2;
         private int castleable = 0;
+        private boolean chosen = false;
+
+        public void setChosen(boolean chosen) {
+            this.chosen = chosen;
+        }
 
         public int getMoved() {
             return moved;
@@ -1150,7 +1203,10 @@ public class ChessBoard {
         public BufferedImage draw() {
             BufferedImage image = null;
             try {
-                if (color == -1) {
+                if(chosen){
+                    image = ImageIO.read(new FileInputStream("pieces/chosenPawn.jpg"));
+                }
+                else if (color == -1) {
                     image = ImageIO.read(new FileInputStream("pieces/whitePawn.jpg"));
                 } else {
                     image = ImageIO.read(new FileInputStream("pieces/blackPawn.jpg"));
