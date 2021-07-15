@@ -15,7 +15,6 @@ public class ChessBoard {
     private int[] whiteKing = {0, 4};
     private int whiteCheck = 0;
     private int blackCheck = 0;
-    private Board brd = new Board();
     public int getWhiteCheck() {
         return whiteCheck;
     }
@@ -295,7 +294,9 @@ public class ChessBoard {
     public Piece[][] getBoard() {
         return board;
     }
-
+    public BufferedImage drawPiece(int i, int j){
+        return board[i][j].draw();
+    }
     private void setBoard(){
         //Set up whites
         board[0][0] = new Rook(-1, new int[]{0, 0});
@@ -328,30 +329,7 @@ public class ChessBoard {
         board[7][6] = new Knight(1, new int[]{7, 6});
         board[7][7] = new Rook(1, new int[]{7, 7});
     }
-    public void drawBoard(){
-        /*
-        System.out.print(1);
-        System.out.print(" |");
-        for(int i =0;i<8;i++){
-            if(i != 0){
-                System.out.print("\n");
-                System.out.print(i + 1);
-                System.out.print(" |");
-            }
-            for(int j=0;j<8;j++){
-                board[i][j].draw();
-                System.out.print("|");
-            }
 
-        }
-        System.out.println(" ");
-        System.out.println("   a  b  c  d  e  f  g  h");
-*/
-        brd.drawGUI();
-    }
-    public void refreshBoard(){
-        brd.repaint();
-    }
     public int checkColor(int turn, int[] from){
         if(turn * board[from[0]][from[1]].getColor() <=0){
             System.out.println("INVALID PIECE CHOSEN");
@@ -1185,34 +1163,4 @@ public class ChessBoard {
         }
     }
 
-    private class Board extends JPanel{
-        public void paint(Graphics g){
-            g.fillRect(0, 0, 400, 400);
-            for(int j = 0;j<400;j = j + 100){
-                for(int i = 0;i<400;i = i + 100){
-                    g.clearRect(i, j + 50,50,50);
-                }
-                for(int k = 50;k<400;k = k + 100){
-                    g.clearRect(k, j,50,50);
-                }
-            }
-
-            for(int i =0; i < 8;i++){
-                for(int j = 0;j < 8;j++){
-                    g.drawImage(board[i][j].draw(),i*50, j*50, 50, 50, null);
-                }
-            }
-        }
-        public void drawGUI() {
-            JFrame frame = new JFrame();
-            frame.setSize(600, 431);
-            frame.getContentPane().add(new GraphicTest());
-            frame.setLocationRelativeTo(null);
-            frame.setBackground(Color.LIGHT_GRAY);
-            Component mouseClick = new MyComponent();
-            frame.addMouseListener((MouseListener) mouseClick);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
-        }
-    }
 }

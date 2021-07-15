@@ -7,6 +7,13 @@ public class Game {
     private int turn = -1;
     private static final String[] turnName = {"WHITE", "", "BLACK"};
     private static final Pattern fieldPattern = Pattern.compile("[a-hA-H][1-8]");
+    private boolean selected = false;
+    private boolean gameOver = false;
+
+    public boolean isSelected() {
+        return selected;
+    }
+
     private static final Map<String, Integer> fieldNames = Map.of(
             "a",0,
             "b", 1,
@@ -17,6 +24,10 @@ public class Game {
             "g", 6,
             "h", 7);
     private ChessBoard board;
+
+    public ChessBoard getBoard() {
+        return board;
+    }
 
     public Game() {
         this.board = new ChessBoard();
@@ -32,13 +43,78 @@ public class Game {
             throw new Exception("WRONG FIELD");
         }
     }
+    public String select(int y, int x){
+        if(x < 0 || x >8 || y <0 || y > 8){
+            return "WRONG FIELD";
+        }
+        int col = board.checkColor(turn, new int[]{y, x});
+        if(col == 1){
+            return "INVALID PIECE CHOSEN";
+        }
+        else{
+            selected = true;
+            return "";
+        }
+    }
+    public String move(int y1, int x1, int y, int x){
+        if(x < 0 || x >8 || y <0 || y > 8 || y1 < 0 || y1 > 8 || x1 <0 || x1 > 8) {
+            return "WRONG FIELD";
+        }
+            int success = board.movePiece(new int[]{y1, x1}, new int[]{y,x}, turn);
+        board.checkPromotion();
+        if(success == 0){
+            int enemyCheck = board.checkCheck(turn * (-1));
+            int myCheck = board.checkCheck(turn);
+            if(turn < 0){
+                board.setBlackCheck(enemyCheck);
+                board.setWhiteCheck(myCheck);
+            }
+            else{
+                board.setWhiteCheck(enemyCheck);
+                board.setBlackCheck(myCheck);
+            }
+            if(enemyCheck == 1){
+                System.out.println("CHECK");
+            }
+            if(turn <0){
+                if(board.getBlackMoved()[0] >=0){
+                    board.setMoved(turn);
+                }
+                board.setBlackMoved(new int[] {-1, -1});
+            }
+            if(turn >0){
+                if(board.getWhiteMoved()[0] >=0){
+                    board.setMoved(turn);
+                }
+                board.setWhiteMoved(new int[] {-1, -1});
+            }
+            turn = turn * -1;
+            selected = false;
+            if(turn < 0){
+                if(board.getBlackCheck() == 1){
+                    gameOver = true;
+                    return "CHECKMATE " + turnName[turn + 1] + " WIN";
 
-
+                }
+            }
+            else {
+                if (board.getWhiteCheck() == 1) {
+                    gameOver = true;
+                    return "CHECKMATE " + turnName[turn + 1] + " WIN";
+                }
+            }
+            return "";
+        }
+        else{
+            //Prone to change
+            selected = false;
+            return "CAN'T MOVE THERE";
+        }
+    }
+    /*
     public void play(){
         try {
-            board.drawBoard();
             while(true) {
-                board.refreshBoard();
                 if(turn < 0){
                     if(board.getBlackCheck() == 1){
                         System.out.println("CHECKMATE");
@@ -146,5 +222,11 @@ public class Game {
             this.play();
         }
     }
+*/
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
 
 }
+
