@@ -274,14 +274,9 @@ public class ChessBoard {
     public void setBlackMoved(int[] blackMoved) {
         this.blackMoved = blackMoved;
     }
-    public void enPassant(int color, int type, int loc0, int loc1){
-        if(type>0){
-            board[loc0][loc1 - color] = new Blank();
+    public void enPassant(int color, int pos0, int pos1){
+            board[pos0 + color][pos1] = new Blank();
 
-        }
-        else{
-            board[loc0][loc1 + color] = new Blank();
-        }
 
     }
     public ChessBoard() {
@@ -1137,14 +1132,8 @@ public class ChessBoard {
                 return 1;
             }
             if(location[1] - this.color >= 0 && location[1] - this.color < 8) {
-                if ((position[0] - location[0]) * (-1 * color) == 1 && position[1] - location[1] == 1 && board[location[0]][location[1] - this.color].getColor() * this.color == -1 && board[location[0]][location[1] - this.color].getMoved() == 1) {
-                    enPassant(this.color, 1, location[0], location[1]);
-                    return 0;
-                }
-            }
-            if(location[1] + this.color >= 0 && location[1] + this.color < 8){
-                if ((position[0] - location[0]) * (-1 * color) == 1 && position[1] - location[1] == -1 && board[location[0]][location[1] + this.color].getColor() * this.color == -1 && board[location[0]][location[1] + this.color].getMoved() == 1) {
-                    enPassant(this.color, -1, location[0], location[1]);
+                if ((position[0]-location[0]) * (-1 * color) == 1 && (Math.abs(position[1]-location[1])==1) && board[position[0] + color][position[1]].getMoved() == 1) {
+                    enPassant(this.color, position[0], position[1]);
                     return 0;
                 }
             }
