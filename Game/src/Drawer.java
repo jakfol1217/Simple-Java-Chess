@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseListener;
 
 public class Drawer {
     private JFrame frame;
@@ -21,7 +20,7 @@ public class Drawer {
         frame.getContentPane().add(graphicTest);
         frame.setBackground(Color.LIGHT_GRAY);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.addMouseListener((MouseListener) mouseClick);
+        frame.addMouseListener( mouseClick);
         frame.setVisible(true);
     }
 }

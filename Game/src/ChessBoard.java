@@ -1,4 +1,8 @@
 import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -10,6 +14,9 @@ public class ChessBoard {
     private int[] blackMoved = {-1, -1};
     private int[] blackKing = {7, 4};
     private int[] whiteKing = {0, 4};
+    private int[] promotionloc;
+    private int promotioncol;
+    private JFrame frame;
     private int whiteCheck = 0;
     private int blackCheck = 0;
     public int getWhiteCheck() {
@@ -342,18 +349,33 @@ public class ChessBoard {
     public void checkPromotion(){
         for(int i = 0;i<8;i++){
             if(board[0][i] instanceof Pawn){
-                promote(new int[]{0, i}, board[0][i].getColor());
+                promotioncol = board[0][i].getColor();
+                promotionloc = new int[]{0, i};
+                drawChoice();
                 break;
             }
         }
         for(int i = 0;i<8;i++){
             if(board[7][i] instanceof Pawn){
-                promote(new int[]{7, i}, board[7][i].getColor());
+                promotioncol = board[7][i].getColor();
+                promotionloc = new int[]{7, i};
+                drawChoice();
                 break;
             }
         }
     }
-    private void promote(int[] position, int color){
+    private void drawChoice() {
+        frame = new JFrame();
+        frame.setSize(150, 250);
+        frame.setLocationRelativeTo(null);
+        ChoosePanel choosePanel = new ChoosePanel();
+        frame.getContentPane().add(choosePanel);
+        frame.setBackground(Color.LIGHT_GRAY);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        Chooser chooser = new Chooser();
+        frame.addMouseListener(chooser);
+        frame.setVisible(true);
+        /*
         try {
             System.out.println("CHOOSE FIGURE");
             System.out.println("0- QUEEN");
@@ -365,24 +387,31 @@ public class ChessBoard {
             if (choice < 0 || choice > 3) {
                 throw new Exception("STH WENT WRONG");
             }
+
+         */
+    }
+    public void choose(int choice){
             switch (choice){
                 case 0:
-                    board[position[0]][position[1]] = new Queen(color, new int[]{position[0], position[1]});
+                    board[promotionloc[0]][promotionloc[1]] = new Queen(promotioncol, new int[]{promotionloc[0], promotionloc[1]});
                     break;
                 case 1:
-                    board[position[0]][position[1]] = new Rook(color, new int[]{position[0], position[1]});
+                    board[promotionloc[0]][promotionloc[1]] = new Rook(promotioncol, new int[]{promotionloc[0], promotionloc[1]});
                     break;
                 case 2:
-                    board[position[0]][position[1]] = new Bishop(color, new int[]{position[0], position[1]});
+                    board[promotionloc[0]][promotionloc[1]] = new Bishop(promotioncol, new int[]{promotionloc[0], promotionloc[1]});
                     break;
                 case 3:
-                    board[position[0]][position[1]] = new Knight(color, new int[]{position[0], position[1]});
+                    board[promotionloc[0]][promotionloc[1]] = new Knight(promotioncol, new int[]{promotionloc[0], promotionloc[1]});
                     break;
             }
-        } catch (Exception e) {
-            System.out.println("SOMETHING WENT WRONG. TRY CHOOSING AGAIN");
-            checkPromotion();
-        }
+            promotionloc = new int[]{-1,-1};
+            promotioncol = 0;
+            frame.setVisible(false);
+        //} catch (Exception e) {
+       //     System.out.println("SOMETHING WENT WRONG. TRY CHOOSING AGAIN");
+         //   checkPromotion();
+       // }
     }
 
     public int castle(int color, int type){
@@ -1202,4 +1231,32 @@ public class ChessBoard {
         }
     }
 
+    private class Chooser implements MouseListener{
+
+        @Override
+        public void mouseClicked(MouseEvent mouseEvent) {
+            int ypoint = mouseEvent.getY();
+            choose((ypoint - 31) / 50);
+        }
+
+        @Override
+        public void mousePressed(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent mouseEvent) {
+
+        }
+    }
 }
