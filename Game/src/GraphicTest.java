@@ -31,6 +31,7 @@ public class GraphicTest extends JPanel{
                 }
             }
         }
+
         g.setFont(new Font("Comic Sans", Font.PLAIN, 20));
         String turnName = game.getTurnName()[game.getTurn() + 1];
         g.drawString(turnName + " MOVE", 420, 20);
@@ -39,7 +40,6 @@ public class GraphicTest extends JPanel{
         g.drawString(errorText, 405, 100);
         String win = game.getWin();
         g.drawString(win, 405, 50);
-
     }
 
 

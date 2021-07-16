@@ -98,6 +98,9 @@ public class Game {
                 if (enemyCheck == 1) {
                     win = "CHECK";
                 }
+                else{
+                    win = " ";
+                }
                 if (turn < 0) {
                     if (board.getBlackMoved()[0] >= 0) {
                         board.setMoved(turn);

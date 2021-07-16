@@ -1139,14 +1139,12 @@ public class ChessBoard {
             if(location[1] - this.color >= 0 && location[1] - this.color < 8) {
                 if ((position[0] - location[0]) * (-1 * color) == 1 && position[1] - location[1] == 1 && board[location[0]][location[1] - this.color].getColor() * this.color == -1 && board[location[0]][location[1] - this.color].getMoved() == 1) {
                     enPassant(this.color, 1, location[0], location[1]);
-                    System.out.println("EN PASSANT");
                     return 0;
                 }
             }
             if(location[1] + this.color >= 0 && location[1] + this.color < 8){
                 if ((position[0] - location[0]) * (-1 * color) == 1 && position[1] - location[1] == -1 && board[location[0]][location[1] + this.color].getColor() * this.color == -1 && board[location[0]][location[1] + this.color].getMoved() == 1) {
                     enPassant(this.color, -1, location[0], location[1]);
-                    System.out.println("EN PASSANT");
                     return 0;
                 }
             }
