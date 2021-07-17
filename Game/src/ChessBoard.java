@@ -4,9 +4,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.InputStreamReader;
 
 public class ChessBoard {
     private Piece[][] board = new Piece[8][8];
@@ -35,17 +33,11 @@ public class ChessBoard {
         this.blackCheck = blackCheck;
     }
     public void setChosen(int y, int x, boolean chosen){board[y][x].setChosen(chosen);}
-    public int[] getBlackKing() {
-        return blackKing;
-    }
 
     public void setBlackKing(int[] blackKing) {
         this.blackKing = blackKing;
     }
 
-    public int[] getWhiteKing() {
-        return whiteKing;
-    }
     public boolean onBoard(int loc0, int loc1){
         return loc0 >= 0 && loc0 <= 7 && loc1 >= 0 && loc1 <= 7;
     }
@@ -290,9 +282,6 @@ public class ChessBoard {
         this.setBoard();
     }
 
-    public Piece[][] getBoard() {
-        return board;
-    }
     public BufferedImage drawPiece(int i, int j){
         return board[i][j].draw();
     }
